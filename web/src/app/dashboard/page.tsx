@@ -58,15 +58,17 @@ export default async function DashboardPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="max-w-6xl mx-auto space-y-6 relative z-10">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight mb-1">{greeting}, {user.name}!</h1>
           <p className="text-muted-foreground text-sm">Here&apos;s what your AI companion has planned for you today.</p>
         </div>
-        <Link href="/dashboard/tasks" className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-green-600 to-teal-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:from-green-500 hover:to-teal-500 transition-all shadow-lg shadow-green-500/25">
-          <Plus className="w-4 h-4" /> New Task
-        </Link>
+        <div className="hidden sm:flex items-center gap-2">
+          <Link href="/dashboard/tasks" className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-teal-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:from-green-500 hover:to-teal-500 transition-all shadow-lg shadow-green-500/25">
+            <Plus className="w-4 h-4" /> New Task
+          </Link>
+        </div>
       </div>
 
       {/* Stats Grid */}

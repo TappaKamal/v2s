@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Plus, Sparkles, Trash2, CheckCircle2, Circle, Clock, Search, Filter } from "lucide-react";
-import VoiceInput from "@/components/voice-input";
 import { createTask, getTasks, toggleTaskStatus, deleteTask, runAIPrioritization } from "@/app/actions/tasks";
 
 interface Task {
@@ -108,7 +107,6 @@ export default function TasksPage() {
           <p className="text-sm text-muted-foreground">{tasks.filter(t => t.status === 'pending').length} pending · {tasks.filter(t => t.status === 'completed').length} completed</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          <VoiceInput />
           <Button
             onClick={handleAIPrioritize}
             variant="outline"

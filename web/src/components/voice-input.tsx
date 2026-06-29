@@ -13,44 +13,55 @@ export default function VoiceInput() {
   const recognitionRef = useRef<any>(null);
 
   const startListening = () => {
-    if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
+    if (!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)) {
+      alert("Your browser does not support voice recognition. Please use Google Chrome or Edge.");
       setStatus("error");
       return;
     }
 
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = true;
-    recognition.lang = "en-US";
+    try {
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      recognition.lang = "en-US";
 
-    recognition.onstart = () => {
-      setIsListening(true);
-      setStatus("listening");
-      setTranscript("");
-    };
+      recognition.onstart = () => {
+        setIsListening(true);
+        setStatus("listening");
+        setTranscript("");
+      };
 
-    recognition.onresult = (event: any) => {
-      const current = event.results[event.results.length - 1];
-      setTranscript(current[0].transcript);
-    };
+      recognition.onresult = (event: any) => {
+        const current = event.results[event.results.length - 1];
+        setTranscript(current[0].transcript);
+      };
 
-    recognition.onend = async () => {
-      setIsListening(false);
-      if (transcript) {
-        await processVoice(transcript);
-      } else {
-        setStatus("idle");
-      }
-    };
+      recognition.onend = async () => {
+        setIsListening(false);
+        if (transcript) {
+          await processVoice(transcript);
+        } else {
+          setStatus("idle");
+        }
+      };
 
-    recognition.onerror = () => {
-      setIsListening(false);
+      recognition.onerror = (event: any) => {
+        setIsListening(false);
+        setStatus("error");
+        if (event.error === 'not-allowed') {
+          alert("Microphone access was denied. Please allow microphone access in your browser settings.");
+        } else {
+          console.error("Speech recognition error", event.error);
+        }
+      };
+
+      recognitionRef.current = recognition;
+      recognition.start();
+    } catch (err) {
+      console.error(err);
       setStatus("error");
-    };
-
-    recognitionRef.current = recognition;
-    recognition.start();
+    }
   };
 
   const stopListening = () => {
