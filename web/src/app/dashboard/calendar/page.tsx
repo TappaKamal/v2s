@@ -111,14 +111,14 @@ export default function CalendarPage() {
           <Button
             onClick={handleAutoSchedule}
             variant="outline"
-            size="sm"
+            size="default"
             disabled={isScheduling}
             className="gap-2 rounded-full border-green-500/30 hover:bg-green-500/10 hover:text-green-600"
           >
             <Sparkles className="w-4 h-4" />
             {isScheduling ? "Scheduling..." : "Auto-Schedule Day"}
           </Button>
-          <Button onClick={exportICS} variant="outline" size="sm" className="gap-2 rounded-full">
+          <Button onClick={exportICS} variant="outline" size="default" className="gap-2 rounded-full">
             <Download className="w-4 h-4" /> Export .ics
           </Button>
         </div>
@@ -149,42 +149,85 @@ export default function CalendarPage() {
         })}
       </div>
 
-      {/* Timeline */}
-      <Card className="border-border/30">
-        <CardContent className="pt-6">
-          <div className="space-y-0">
+      {/* Premium Timeline UI */}
+      <Card className="border-border/30 overflow-hidden shadow-xl shadow-green-500/5 bg-card/40 backdrop-blur-md">
+        <div className="bg-gradient-to-r from-green-500/10 to-transparent border-b border-border/30 px-6 py-4 flex items-center justify-between">
+          <h3 className="font-semibold text-xl flex items-center gap-2">
+            <CalendarIcon className="w-5 h-5 text-green-600" />
+            Daily Schedule
+          </h3>
+          <span className="text-sm font-medium text-muted-foreground bg-secondary/50 px-3 py-1 rounded-full">
+            {new Date(selectedDate + "T12:00:00").toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+          </span>
+        </div>
+        
+        <CardContent className="p-0">
+          <div className="flex flex-col divide-y divide-border/20">
             {HOURS.map(hour => {
               const hourTasks = getTaskAtHour(hour);
               const timeStr = `${hour.toString().padStart(2, "0")}:00`;
               const isPast = new Date(`${selectedDate}T${timeStr}:00`) < new Date();
+              const isCurrentHour = new Date().getHours() === hour && selectedDate === new Date().toISOString().split("T")[0];
 
               return (
-                <div key={hour} className="flex gap-4 min-h-[60px] group">
-                  <div className={`w-14 text-sm font-medium shrink-0 pt-1 ${isPast ? 'text-muted-foreground/50' : 'text-muted-foreground'}`}>
-                    {hour > 12 ? `${hour - 12} PM` : hour === 12 ? '12 PM' : `${hour} AM`}
+                <div key={hour} className={`flex relative group min-h-[90px] transition-colors ${isCurrentHour ? 'bg-green-500/5' : 'hover:bg-secondary/20'}`}>
+                  {/* Current Time Indicator Line */}
+                  {isCurrentHour && (
+                    <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-red-400 z-10 pointer-events-none">
+                      <div className="absolute -left-1.5 -top-1.5 w-3 h-3 rounded-full bg-red-500" />
+                    </div>
+                  )}
+
+                  {/* Time Column */}
+                  <div className="w-20 sm:w-24 shrink-0 border-r border-border/20 py-3 pr-4 flex flex-col items-end">
+                    <span className={`text-sm font-bold ${isCurrentHour ? 'text-green-600' : isPast ? 'text-muted-foreground/40' : 'text-muted-foreground'}`}>
+                      {hour > 12 ? `${hour - 12} PM` : hour === 12 ? '12 PM' : `${hour} AM`}
+                    </span>
+                    <span className="text-xs text-muted-foreground/50 mt-1">00</span>
                   </div>
-                  <div className="flex-1 border-t border-border/20 pt-2 pb-4">
-                    {hourTasks.length > 0 ? (
-                      hourTasks.map(task => (
-                        <div
-                          key={task.id}
-                          className={`p-3 rounded-lg border-l-4 mb-1 ${priorityColors[task.priority] || 'border-l-green-500 bg-green-500/5'}`}
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="font-medium text-base">{task.title}</span>
-                            <Badge variant="outline" className="text-xs">{task.priority}</Badge>
+
+                  {/* Tasks Column */}
+                  <div className="flex-1 p-3 relative">
+                    {/* Dashed half-hour line */}
+                    <div className="absolute top-1/2 left-0 right-0 border-t border-dashed border-border/30 pointer-events-none" />
+                    
+                    <div className="relative z-20 space-y-2">
+                      {hourTasks.length > 0 ? (
+                        hourTasks.map(task => (
+                          <div
+                            key={task.id}
+                            className={`p-3 rounded-xl border flex flex-col gap-1 transition-all hover:scale-[1.01] hover:shadow-md cursor-pointer ${
+                              priorityColors[task.priority] || 'border-green-500/20 bg-green-500/10'
+                            }`}
+                          >
+                            <div className="flex items-start justify-between gap-4">
+                              <span className="font-semibold text-base leading-tight text-foreground/90">{task.title}</span>
+                              <Badge variant="outline" className="text-xs shrink-0 capitalize shadow-sm bg-background/50 backdrop-blur-sm">
+                                {task.priority}
+                              </Badge>
+                            </div>
+                            
+                            {task.scheduledStart && task.scheduledEnd && (
+                              <div className="flex items-center gap-3 mt-1.5 text-sm font-medium text-muted-foreground">
+                                <span className="flex items-center gap-1.5 bg-background/50 px-2 py-0.5 rounded-md">
+                                  <Clock className="w-3.5 h-3.5 text-green-500" />
+                                  {task.scheduledStart.split("T")[1]?.slice(0, 5)}
+                                  <span className="text-border mx-1">→</span>
+                                  {task.scheduledEnd.split("T")[1]?.slice(0, 5)}
+                                </span>
+                                {task.estimatedMinutes && (
+                                  <span className="text-xs bg-secondary/50 px-2 py-0.5 rounded-md">
+                                    {task.estimatedMinutes}m
+                                  </span>
+                                )}
+                              </div>
+                            )}
                           </div>
-                          {task.scheduledStart && task.scheduledEnd && (
-                            <p className="text-sm text-muted-foreground mt-1 flex items-center gap-1">
-                              <Clock className="w-3 h-3" />
-                              {task.scheduledStart.split("T")[1]?.slice(0, 5)} — {task.scheduledEnd.split("T")[1]?.slice(0, 5)}
-                            </p>
-                          )}
-                        </div>
-                      ))
-                    ) : (
-                      <div className="h-full min-h-[28px] group-hover:bg-secondary/20 rounded-lg transition-colors" />
-                    )}
+                        ))
+                      ) : (
+                        <div className="h-full w-full" />
+                      )}
+                    </div>
                   </div>
                 </div>
               );
@@ -195,6 +238,7 @@ export default function CalendarPage() {
     </div>
   );
 }
+
 
 
 

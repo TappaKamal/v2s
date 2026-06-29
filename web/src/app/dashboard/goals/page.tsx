@@ -97,7 +97,7 @@ export default function GoalsPage() {
           <h1 className="text-3xl font-bold tracking-tight">Goals</h1>
           <p className="text-base text-muted-foreground">{goals.filter(g => g.status === 'active').length} active goals</p>
         </div>
-        <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2 rounded-full bg-gradient-to-r from-green-600 to-teal-600 text-white">
+        <Button onClick={() => setShowForm(!showForm)} size="default" className="gap-2 rounded-full bg-gradient-to-r from-green-600 to-teal-600 text-white">
           <Plus className="w-4 h-4" /> New Goal
         </Button>
       </div>
@@ -111,8 +111,8 @@ export default function GoalsPage() {
               <div className="flex gap-3 items-center">
                 <input name="deadline" type="date" className="bg-secondary/50 border border-border/50 rounded-xl px-3 py-2 text-base focus:outline-none" />
                 <div className="flex-1" />
-                <Button type="button" variant="ghost" size="sm" onClick={() => setShowForm(false)}>Cancel</Button>
-                <Button type="submit" size="sm" disabled={isPending} className="bg-gradient-to-r from-green-600 to-teal-600 text-white">Create Goal</Button>
+                <Button type="button" variant="ghost" size="default" onClick={() => setShowForm(false)}>Cancel</Button>
+                <Button type="submit" size="default" disabled={isPending} className="bg-gradient-to-r from-green-600 to-teal-600 text-white">Create Goal</Button>
               </div>
             </form>
           </CardContent>
@@ -143,7 +143,7 @@ export default function GoalsPage() {
                       <Button
                         onClick={(e) => { e.stopPropagation(); handleDecompose(goal.id); }}
                         variant="outline"
-                        size="sm"
+                        size="default"
                         disabled={decomposingGoalId === goal.id}
                         className="gap-1 text-sm rounded-full border-green-500/30 hover:bg-green-500/10 hover:text-green-600"
                       >
@@ -212,6 +212,7 @@ export default function GoalsPage() {
     </div>
   );
 }
+
 
 
 

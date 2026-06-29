@@ -74,7 +74,7 @@ export default function HabitsPage() {
           <h1 className="text-3xl font-bold tracking-tight">Habits</h1>
           <p className="text-base text-muted-foreground">Build consistency with daily tracking</p>
         </div>
-        <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2 rounded-full bg-gradient-to-r from-green-600 to-teal-600 text-white">
+        <Button onClick={() => setShowForm(!showForm)} size="default" className="gap-2 rounded-full bg-gradient-to-r from-green-600 to-teal-600 text-white">
           <Plus className="w-4 h-4" /> New Habit
         </Button>
       </div>
@@ -97,8 +97,8 @@ export default function HabitsPage() {
                   ))}
                 </div>
                 <div className="flex-1" />
-                <Button type="button" variant="ghost" size="sm" onClick={() => setShowForm(false)}>Cancel</Button>
-                <Button type="submit" size="sm" disabled={isPending} className="bg-gradient-to-r from-green-600 to-teal-600 text-white">Create</Button>
+                <Button type="button" variant="ghost" size="default" onClick={() => setShowForm(false)}>Cancel</Button>
+                <Button type="submit" size="default" disabled={isPending} className="bg-gradient-to-r from-green-600 to-teal-600 text-white">Create</Button>
               </div>
             </form>
           </CardContent>
@@ -167,6 +167,7 @@ export default function HabitsPage() {
     </div>
   );
 }
+
 
 
 

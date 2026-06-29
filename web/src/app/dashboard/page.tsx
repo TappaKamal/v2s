@@ -65,7 +65,7 @@ export default async function DashboardPage() {
           <p className="text-muted-foreground text-base">Here&apos;s what your AI companion has planned for you today.</p>
         </div>
         <div className="hidden sm:flex items-center gap-2">
-          <Link href="/dashboard/tasks" className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-teal-600 text-white px-4 py-2 rounded-xl text-base font-medium hover:from-green-500 hover:to-teal-500 transition-all shadow-lg shadow-green-500/25">
+          <Link href="/dashboard/tasks" className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-teal-600 text-white px-6 py-3 rounded-xl text-base font-medium hover:from-green-500 hover:to-teal-500 transition-all shadow-lg shadow-green-500/25 [zoom:1.05]">
             <Plus className="w-4 h-4" /> New Task
           </Link>
         </div>
@@ -213,6 +213,8 @@ export default async function DashboardPage() {
     </div>
   );
 }
+
+
 
 
 

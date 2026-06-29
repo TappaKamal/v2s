@@ -97,7 +97,7 @@ export default function AnalyticsPage() {
         <Button
           onClick={handleAnalyze}
           variant="outline"
-          size="sm"
+          size="default"
           disabled={isAnalyzing}
           className="gap-2 rounded-full border-green-500/30 hover:bg-green-500/10 hover:text-green-600"
         >
@@ -224,6 +224,7 @@ export default function AnalyticsPage() {
     </div>
   );
 }
+
 
 
 

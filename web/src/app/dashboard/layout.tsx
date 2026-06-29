@@ -121,7 +121,7 @@ export default function DashboardLayout({
           <Button
             onClick={() => setChatOpen(!chatOpen)}
             variant="outline"
-            size="sm"
+            size="default"
             className="gap-2 rounded-full border-green-500/30 hover:bg-green-500/10 hover:text-green-600"
           >
             <MessageCircle className="w-4 h-4" />
@@ -138,6 +138,7 @@ export default function DashboardLayout({
     </div>
   );
 }
+
 
 
 

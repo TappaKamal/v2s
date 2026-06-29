@@ -110,14 +110,14 @@ export default function TasksPage() {
           <Button
             onClick={handleAIPrioritize}
             variant="outline"
-            size="sm"
+            size="default"
             disabled={isAIPrioritizing}
             className="gap-2 rounded-full border-green-500/30 hover:bg-green-500/10 hover:text-green-600"
           >
             <Sparkles className="w-4 h-4" />
             {isAIPrioritizing ? "Analyzing..." : "AI Prioritize"}
           </Button>
-          <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2 rounded-full bg-gradient-to-r from-green-600 to-teal-600 text-white">
+          <Button onClick={() => setShowForm(!showForm)} size="default" className="gap-2 rounded-full bg-gradient-to-r from-green-600 to-teal-600 text-white">
             <Plus className="w-4 h-4" /> Add Task
           </Button>
         </div>
@@ -164,8 +164,8 @@ export default function TasksPage() {
                 </select>
                 <input name="dueDate" type="date" className="bg-secondary/50 border border-border/50 rounded-xl px-3 py-2 text-base focus:outline-none" />
                 <div className="flex-1" />
-                <Button type="button" variant="ghost" size="sm" onClick={() => setShowForm(false)}>Cancel</Button>
-                <Button type="submit" size="sm" disabled={isPending} className="bg-gradient-to-r from-green-600 to-teal-600 text-white">
+                <Button type="button" variant="ghost" size="default" onClick={() => setShowForm(false)}>Cancel</Button>
+                <Button type="submit" size="default" disabled={isPending} className="bg-gradient-to-r from-green-600 to-teal-600 text-white">
                   {isPending ? "Creating..." : "Create Task"}
                 </Button>
               </div>
@@ -246,6 +246,7 @@ export default function TasksPage() {
     </div>
   );
 }
+
 
 
 

@@ -100,7 +100,7 @@ export default function VoiceInput() {
         onClick={isListening ? stopListening : startListening}
         disabled={isProcessing}
         variant={isListening ? "destructive" : "outline"}
-        size="sm"
+        size="default"
         className={`gap-2 rounded-full transition-all ${
           isListening
             ? "bg-red-500 hover:bg-red-600 text-white animate-pulse"
@@ -133,6 +133,7 @@ export default function VoiceInput() {
     </div>
   );
 }
+
 
 
 
