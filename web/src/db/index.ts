@@ -7,8 +7,13 @@ import fs from 'fs';
 const isTursoEnabled = process.env.TURSO_DATABASE_URL && process.env.TURSO_DATABASE_URL.length > 0;
 
 // Fallback to local SQLite if Turso env vars are not set
-const localDbPath = path.join(process.cwd(), 'data', 'app.db');
-if (!isTursoEnabled) {
+// Vercel serverless functions have a read-only filesystem except for /tmp
+const isVercel = process.env.VERCEL === '1';
+const localDbPath = isVercel 
+  ? '/tmp/app.db' 
+  : path.join(process.cwd(), 'data', 'app.db');
+
+if (!isTursoEnabled && !isVercel) {
   const dataDir = path.dirname(localDbPath);
   if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir, { recursive: true });
