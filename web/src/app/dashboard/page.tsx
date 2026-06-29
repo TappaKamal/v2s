@@ -61,11 +61,11 @@ export default async function DashboardPage() {
     <div className="max-w-6xl mx-auto space-y-6 relative z-10">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight mb-1">{greeting}, {user.name}!</h1>
-          <p className="text-muted-foreground text-sm">Here&apos;s what your AI companion has planned for you today.</p>
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-1">{greeting}, {user.name}!</h1>
+          <p className="text-muted-foreground text-base">Here&apos;s what your AI companion has planned for you today.</p>
         </div>
         <div className="hidden sm:flex items-center gap-2">
-          <Link href="/dashboard/tasks" className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-teal-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:from-green-500 hover:to-teal-500 transition-all shadow-lg shadow-green-500/25">
+          <Link href="/dashboard/tasks" className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-teal-600 text-white px-4 py-2 rounded-xl text-base font-medium hover:from-green-500 hover:to-teal-500 transition-all shadow-lg shadow-green-500/25">
             <Plus className="w-4 h-4" /> New Task
           </Link>
         </div>
@@ -75,36 +75,36 @@ export default async function DashboardPage() {
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <Card className="bg-card/50 border-border/30 backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-medium text-muted-foreground">Tasks Done</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Tasks Done</CardTitle>
             <CheckCircle2 className="w-4 h-4 text-emerald-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{completedTasks.length}<span className="text-muted-foreground text-lg">/{totalTasks}</span></div>
+            <div className="text-3xl font-bold">{completedTasks.length}<span className="text-muted-foreground text-xl">/{totalTasks}</span></div>
             <Progress value={completionRate} className="mt-2 h-1.5" />
           </CardContent>
         </Card>
 
         <Card className="bg-card/50 border-border/30 backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-medium text-muted-foreground">Best Streak</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Best Streak</CardTitle>
             <Flame className="w-4 h-4 text-orange-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{topStreak} <span className="text-sm text-muted-foreground">days</span></div>
-            <p className="text-xs text-muted-foreground mt-1">{userHabits.length} active habits</p>
+            <div className="text-3xl font-bold">{topStreak} <span className="text-base text-muted-foreground">days</span></div>
+            <p className="text-sm text-muted-foreground mt-1">{userHabits.length} active habits</p>
           </CardContent>
         </Card>
 
         <Card className="bg-card/50 border-border/30 backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-medium text-muted-foreground">Overdue</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Overdue</CardTitle>
             <AlertTriangle className={`w-4 h-4 ${overdueTasks.length > 0 ? 'text-red-500' : 'text-emerald-500'}`} />
           </CardHeader>
           <CardContent>
-            <div className={`text-2xl font-bold ${overdueTasks.length > 0 ? 'text-red-400' : 'text-emerald-400'}`}>
+            <div className={`text-3xl font-bold ${overdueTasks.length > 0 ? 'text-red-400' : 'text-emerald-400'}`}>
               {overdueTasks.length}
             </div>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               {overdueTasks.length > 0 ? 'Need attention!' : 'All clear ✓'}
             </p>
           </CardContent>
@@ -112,12 +112,12 @@ export default async function DashboardPage() {
 
         <Card className="bg-card/50 border-border/30 backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-medium text-muted-foreground">Active Goals</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Active Goals</CardTitle>
             <TrendingUp className="w-4 h-4 text-green-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{activeGoals.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">
+            <div className="text-3xl font-bold">{activeGoals.length}</div>
+            <p className="text-sm text-muted-foreground mt-1">
               {activeGoals.length > 0 ? `Avg ${Math.round(activeGoals.reduce((s, g) => s + (g.progress || 0), 0) / activeGoals.length)}% progress` : 'Set a goal →'}
             </p>
           </CardContent>
@@ -132,8 +132,8 @@ export default async function DashboardPage() {
               <Stethoscope className="w-4 h-4 text-white" />
             </div>
             <div>
-              <p className="text-sm font-medium text-green-300 mb-1">AI Insight</p>
-              <p className="text-sm text-foreground/80 leading-relaxed">{latestInsights[0].content}</p>
+              <p className="text-base font-medium text-green-300 mb-1">AI Insight</p>
+              <p className="text-base text-foreground/80 leading-relaxed">{latestInsights[0].content}</p>
             </div>
           </CardContent>
         </Card>
@@ -144,12 +144,12 @@ export default async function DashboardPage() {
         {/* Up Next */}
         <Card className="border-border/30">
           <CardHeader>
-            <CardTitle className="text-base">Up Next</CardTitle>
-            <CardDescription className="text-xs">AI-prioritized tasks for you.</CardDescription>
+            <CardTitle className="text-lg">Up Next</CardTitle>
+            <CardDescription className="text-sm">AI-prioritized tasks for you.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             {upNextTasks.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground text-sm">
+              <div className="text-center py-8 text-muted-foreground text-base">
                 <CheckCircle2 className="w-8 h-8 mx-auto mb-2 text-emerald-500/50" />
                 No pending tasks. <Link href="/dashboard/tasks" className="text-green-600 hover:underline">Create one</Link>
               </div>
@@ -161,16 +161,16 @@ export default async function DashboardPage() {
                       <div className="w-4 h-4 rounded-full border-2 border-green-500/40" />
                     </div>
                     <div className="min-w-0">
-                      <h4 className="font-medium text-sm truncate">{task.title}</h4>
+                      <h4 className="font-medium text-base truncate">{task.title}</h4>
                       {task.dueDate && (
-                        <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                        <p className="text-sm text-muted-foreground mt-1 flex items-center gap-1">
                           <Clock className="w-3 h-3" />
                           {new Date(task.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                         </p>
                       )}
                     </div>
                   </div>
-                  <Badge variant="outline" className={`text-xs shrink-0 ${priorityColors[task.priority] || ''}`}>
+                  <Badge variant="outline" className={`text-sm shrink-0 ${priorityColors[task.priority] || ''}`}>
                     {task.priority}
                   </Badge>
                 </div>
@@ -182,25 +182,25 @@ export default async function DashboardPage() {
         {/* Active Goals */}
         <Card className="border-border/30">
           <CardHeader>
-            <CardTitle className="text-base">Active Goals</CardTitle>
-            <CardDescription className="text-xs">Progress on your objectives.</CardDescription>
+            <CardTitle className="text-lg">Active Goals</CardTitle>
+            <CardDescription className="text-sm">Progress on your objectives.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-5">
             {activeGoals.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground text-sm">
+              <div className="text-center py-8 text-muted-foreground text-base">
                 <TrendingUp className="w-8 h-8 mx-auto mb-2 text-green-500/50" />
                 No active goals. <Link href="/dashboard/goals" className="text-green-600 hover:underline">Set one</Link>
               </div>
             ) : (
               activeGoals.slice(0, 4).map(goal => (
                 <div key={goal.id} className="space-y-2">
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-base">
                     <span className="font-medium truncate mr-2">{goal.title}</span>
-                    <span className="text-muted-foreground text-xs shrink-0">{goal.progress}%</span>
+                    <span className="text-muted-foreground text-sm shrink-0">{goal.progress}%</span>
                   </div>
                   <Progress value={goal.progress || 0} className="h-1.5" />
                   {goal.deadline && (
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-sm text-muted-foreground">
                       Deadline: {new Date(goal.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </p>
                   )}
@@ -213,4 +213,6 @@ export default async function DashboardPage() {
     </div>
   );
 }
+
+
 

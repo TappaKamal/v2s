@@ -55,7 +55,7 @@ export default function Home() {
             <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-teal-500 rounded-xl flex items-center justify-center text-white shadow-md shadow-green-500/20">
               <Stethoscope className="w-6 h-6" />
             </div>
-            <span className="text-xl font-extrabold tracking-tight text-slate-900">LifeSaver AI</span>
+            <span className="text-2xl font-extrabold tracking-tight text-slate-900">LifeSaver AI</span>
           </div>
           <div className="flex items-center gap-6">
             <Link href="/auth/signin" className="hidden sm:block text-[15px] font-semibold text-slate-500 hover:text-green-600 transition-colors">
@@ -78,7 +78,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center gap-16">
           
           <div className="w-full lg:w-1/2 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-100 border border-orange-200 text-orange-600 text-sm font-bold mb-8 shadow-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-100 border border-orange-200 text-orange-600 text-base font-bold mb-8 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
               India's #1 Productivity Engine
             </div>
@@ -88,13 +88,13 @@ export default function Home() {
               for your <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 via-teal-500 to-cyan-500">schedule.</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium">
+            <p className="text-xl md:text-2xl text-slate-500 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium">
               Personalized task triage, fitness coaching for your habits, and proactive deadline management — available 24/7. Trusted by 300,000+ professionals.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               <Link href="/auth/signup" className="w-full sm:w-auto">
-                <button className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-teal-500 hover:from-green-700 hover:to-teal-600 text-white px-8 py-4 rounded-full text-lg font-bold shadow-xl shadow-green-600/25 transition-all hover:-translate-y-1 flex items-center justify-center gap-2">
+                <button className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-teal-500 hover:from-green-700 hover:to-teal-600 text-white px-8 py-4 rounded-full text-xl font-bold shadow-xl shadow-green-600/25 transition-all hover:-translate-y-1 flex items-center justify-center gap-2">
                   Start your recovery
                   <ArrowRight className="w-5 h-5" />
                 </button>
@@ -103,13 +103,13 @@ export default function Home() {
             
             <div className="mt-12 pt-8 border-t border-slate-200 flex flex-wrap items-center justify-center lg:justify-start gap-8">
               <div className="text-left">
-                <div className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-teal-500">2M+</div>
-                <div className="text-sm font-semibold text-slate-500 mt-1 uppercase tracking-wide">Tasks Triaged</div>
+                <div className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-teal-500">2M+</div>
+                <div className="text-base font-semibold text-slate-500 mt-1 uppercase tracking-wide">Tasks Triaged</div>
               </div>
               <div className="w-px h-10 bg-slate-200 hidden sm:block"></div>
               <div className="text-left">
-                <div className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-teal-500">4.9/5</div>
-                <div className="text-sm font-semibold text-slate-500 mt-1 uppercase tracking-wide">Patient Rating</div>
+                <div className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-teal-500">4.9/5</div>
+                <div className="text-base font-semibold text-slate-500 mt-1 uppercase tracking-wide">Patient Rating</div>
               </div>
             </div>
           </div>
@@ -122,8 +122,8 @@ export default function Home() {
                 <div className="flex-1 bg-[#F8FAF8] p-6 pt-12 relative">
                   <div className="flex justify-between items-center mb-8">
                     <div>
-                      <h3 className="text-2xl font-extrabold text-slate-900">Your Plan</h3>
-                      <p className="text-sm text-slate-500 font-medium">Optimal health detected.</p>
+                      <h3 className="text-3xl font-extrabold text-slate-900">Your Plan</h3>
+                      <p className="text-base text-slate-500 font-medium">Optimal health detected.</p>
                     </div>
                     <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600">
                       <ShieldCheck className="w-6 h-6" />
@@ -139,7 +139,7 @@ export default function Home() {
                       <div className="mt-0.5"><Clock className="text-slate-300 w-5 h-5" /></div>
                       <div>
                         <div className="font-bold text-slate-900">Client Strategy Doc</div>
-                        <div className="text-sm font-semibold text-rose-500 mt-1 flex items-center gap-1">
+                        <div className="text-base font-semibold text-rose-500 mt-1 flex items-center gap-1">
                           <Activity className="w-3.5 h-3.5" /> High Urgency
                         </div>
                       </div>
@@ -153,7 +153,7 @@ export default function Home() {
                       <div className="mt-0.5"><MessageCircle className="text-green-500 w-5 h-5" /></div>
                       <div>
                         <div className="font-bold text-slate-900">Check-in with Disha</div>
-                        <div className="text-sm font-medium text-slate-500 mt-1">Mental health break</div>
+                        <div className="text-base font-medium text-slate-500 mt-1">Mental health break</div>
                       </div>
                     </motion.div>
                   </div>
@@ -168,11 +168,11 @@ export default function Home() {
       {/* Conditions (Features) Grid */}
       <section className="bg-white py-24 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <div className="inline-block px-4 py-1.5 rounded-full bg-green-50 text-green-700 text-sm font-bold tracking-widest uppercase mb-4">
+          <div className="inline-block px-4 py-1.5 rounded-full bg-green-50 text-green-700 text-base font-bold tracking-widest uppercase mb-4">
             Capabilities
           </div>
           <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">Proactive Treatments</h2>
-          <p className="text-lg text-slate-500 max-w-2xl mx-auto mb-16">
+          <p className="text-xl text-slate-500 max-w-2xl mx-auto mb-16">
             Unlike traditional planners, LifeSaver doesn't just record tasks. It actively intervenes to ensure your long-term success.
           </p>
 
@@ -182,7 +182,7 @@ export default function Home() {
                 <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-green-600 shadow-sm mb-6">
                   <feat.icon className="w-7 h-7" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{feat.title}</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">{feat.title}</h3>
                 <p className="text-slate-500 text-[15px] leading-relaxed">
                   {feat.desc}
                 </p>
@@ -196,7 +196,7 @@ export default function Home() {
       <section className="bg-[#F8FAF8] py-24">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-16">
-            <div className="inline-block px-4 py-1.5 rounded-full bg-teal-50 text-teal-700 text-sm font-bold tracking-widest uppercase mb-4">
+            <div className="inline-block px-4 py-1.5 rounded-full bg-teal-50 text-teal-700 text-base font-bold tracking-widest uppercase mb-4">
               How it Works
             </div>
             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">The Road to Recovery</h2>
@@ -205,11 +205,11 @@ export default function Home() {
           <div className="relative border-l-2 border-green-200 ml-6 md:ml-12 pl-10 md:pl-16 space-y-16">
             {steps.map((step, idx) => (
               <div key={idx} className="relative">
-                <div className="absolute -left-[58px] md:-left-[82px] w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center text-white font-extrabold text-xl md:text-2xl shadow-lg shadow-green-500/30">
+                <div className="absolute -left-[58px] md:-left-[82px] w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center text-white font-extrabold text-2xl md:text-3xl shadow-lg shadow-green-500/30">
                   {idx + 1}
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">{step.title}</h3>
-                <p className="text-lg text-slate-500 leading-relaxed max-w-lg">
+                <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">{step.title}</h3>
+                <p className="text-xl text-slate-500 leading-relaxed max-w-lg">
                   {step.desc}
                 </p>
               </div>
@@ -223,7 +223,7 @@ export default function Home() {
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-extrabold text-slate-900 mb-6">Patient FAQ</h2>
-            <p className="text-lg text-slate-500">Everything you need to know about our practice.</p>
+            <p className="text-xl text-slate-500">Everything you need to know about our practice.</p>
           </div>
 
           <div className="space-y-4">
@@ -267,11 +267,11 @@ export default function Home() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-8 tracking-tight">
             Ready for a healthy schedule?
           </h2>
-          <p className="text-xl text-green-100/80 mb-12 max-w-2xl mx-auto font-medium">
+          <p className="text-2xl text-green-100/80 mb-12 max-w-2xl mx-auto font-medium">
             Join 300,000+ professionals who stopped planning and started executing perfectly.
           </p>
           <Link href="/auth/signup">
-            <button className="bg-white hover:bg-slate-50 text-green-700 px-10 py-5 rounded-full text-lg font-bold shadow-xl transition-all hover:scale-105 flex items-center gap-2 mx-auto">
+            <button className="bg-white hover:bg-slate-50 text-green-700 px-10 py-5 rounded-full text-xl font-bold shadow-xl transition-all hover:scale-105 flex items-center gap-2 mx-auto">
               Download the AI Coach (Free)
               <ArrowRight className="w-5 h-5" />
             </button>
@@ -286,7 +286,7 @@ export default function Home() {
             <div className="w-8 h-8 bg-green-500/20 rounded flex items-center justify-center text-green-500">
               <Stethoscope className="w-5 h-5" />
             </div>
-            <span className="font-bold text-white text-lg">LifeSaver AI</span>
+            <span className="font-bold text-white text-xl">LifeSaver AI</span>
           </div>
           <p className="text-[13px] font-medium">© 2026 LifeSaver Health Technologies. All rights reserved.</p>
         </div>
@@ -295,4 +295,6 @@ export default function Home() {
     </div>
   );
 }
+
+
 

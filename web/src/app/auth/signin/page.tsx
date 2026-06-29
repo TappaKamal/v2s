@@ -31,28 +31,28 @@ export default function SignInPage() {
             <div className="bg-gradient-to-br from-green-500 to-teal-500 p-2.5 rounded-xl shadow-md shadow-green-500/20">
               <Stethoscope className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-extrabold tracking-tight text-slate-900">LifeSaver AI</span>
+            <span className="text-3xl font-extrabold tracking-tight text-slate-900">LifeSaver AI</span>
           </Link>
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Patient Portal</h1>
+          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">Patient Portal</h1>
           <p className="text-slate-500 font-medium mt-2">Log in to view your chart</p>
         </div>
 
         <div className="bg-white border border-slate-100 rounded-[2rem] p-8 shadow-xl shadow-slate-200/50">
           <form action={handleSubmit} className="space-y-5">
             {error && (
-              <div className="bg-rose-50 border border-rose-200 text-rose-600 text-sm font-semibold rounded-xl px-4 py-3">
+              <div className="bg-rose-50 border border-rose-200 text-rose-600 text-base font-semibold rounded-xl px-4 py-3">
                 {error}
               </div>
             )}
             <div>
-              <label className="text-sm font-bold text-slate-700 mb-2 block">Email Address</label>
+              <label className="text-base font-bold text-slate-700 mb-2 block">Email Address</label>
               <input name="email" type="email" required placeholder="you@example.com"
-                className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all font-medium placeholder:text-slate-400" />
+                className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all font-medium placeholder:text-slate-400" />
             </div>
             <div>
-              <label className="text-sm font-bold text-slate-700 mb-2 block">Password</label>
+              <label className="text-base font-bold text-slate-700 mb-2 block">Password</label>
               <input name="password" type="password" required placeholder="••••••••"
-                className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all font-medium placeholder:text-slate-400" />
+                className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all font-medium placeholder:text-slate-400" />
             </div>
             <Button type="submit" disabled={loading} className="w-full rounded-xl bg-gradient-to-r from-green-600 to-teal-500 hover:from-green-700 hover:to-teal-600 text-white h-12 text-[15px] font-bold shadow-lg shadow-green-600/25 transition-all">
               {loading ? "Authenticating..." : "Sign In"}
@@ -68,4 +68,6 @@ export default function SignInPage() {
     </div>
   );
 }
+
+
 

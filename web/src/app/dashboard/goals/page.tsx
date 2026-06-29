@@ -94,8 +94,8 @@ export default function GoalsPage() {
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Goals</h1>
-          <p className="text-sm text-muted-foreground">{goals.filter(g => g.status === 'active').length} active goals</p>
+          <h1 className="text-3xl font-bold tracking-tight">Goals</h1>
+          <p className="text-base text-muted-foreground">{goals.filter(g => g.status === 'active').length} active goals</p>
         </div>
         <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2 rounded-full bg-gradient-to-r from-green-600 to-teal-600 text-white">
           <Plus className="w-4 h-4" /> New Goal
@@ -106,10 +106,10 @@ export default function GoalsPage() {
         <Card className="border-green-500/20 bg-green-500/5">
           <CardContent className="pt-6">
             <form action={handleCreate} className="space-y-3">
-              <input name="title" placeholder="What do you want to achieve?" required className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50" autoFocus />
-              <textarea name="description" placeholder="Describe your goal (optional)" rows={2} className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 resize-none" />
+              <input name="title" placeholder="What do you want to achieve?" required className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-green-500/50" autoFocus />
+              <textarea name="description" placeholder="Describe your goal (optional)" rows={2} className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-green-500/50 resize-none" />
               <div className="flex gap-3 items-center">
-                <input name="deadline" type="date" className="bg-secondary/50 border border-border/50 rounded-xl px-3 py-2 text-sm focus:outline-none" />
+                <input name="deadline" type="date" className="bg-secondary/50 border border-border/50 rounded-xl px-3 py-2 text-base focus:outline-none" />
                 <div className="flex-1" />
                 <Button type="button" variant="ghost" size="sm" onClick={() => setShowForm(false)}>Cancel</Button>
                 <Button type="submit" size="sm" disabled={isPending} className="bg-gradient-to-r from-green-600 to-teal-600 text-white">Create Goal</Button>
@@ -124,7 +124,7 @@ export default function GoalsPage() {
           <div className="text-center py-16 text-muted-foreground">
             <Target className="w-12 h-12 mx-auto mb-3 text-green-500/30" />
             <p className="font-medium">No goals yet</p>
-            <p className="text-sm mt-1">Set your first goal and let AI break it down!</p>
+            <p className="text-base mt-1">Set your first goal and let AI break it down!</p>
           </div>
         ) : (
           goals.map(goal => (
@@ -132,11 +132,11 @@ export default function GoalsPage() {
               <CardHeader className="pb-3 cursor-pointer" onClick={() => handleExpand(goal.id)}>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <CardTitle className="text-base flex items-center gap-2">
+                    <CardTitle className="text-lg flex items-center gap-2">
                       <Target className="w-4 h-4 text-green-500" />
                       {goal.title}
                     </CardTitle>
-                    {goal.description && <CardDescription className="mt-1 text-xs">{goal.description}</CardDescription>}
+                    {goal.description && <CardDescription className="mt-1 text-sm">{goal.description}</CardDescription>}
                   </div>
                   <div className="flex items-center gap-2">
                     {!goal.aiDecomposed && (
@@ -145,7 +145,7 @@ export default function GoalsPage() {
                         variant="outline"
                         size="sm"
                         disabled={decomposingGoalId === goal.id}
-                        className="gap-1 text-xs rounded-full border-green-500/30 hover:bg-green-500/10 hover:text-green-600"
+                        className="gap-1 text-sm rounded-full border-green-500/30 hover:bg-green-500/10 hover:text-green-600"
                       >
                         <Sparkles className="w-3 h-3" />
                         {decomposingGoalId === goal.id ? "Breaking down..." : "AI Breakdown"}
@@ -162,13 +162,13 @@ export default function GoalsPage() {
                   </div>
                 </div>
                 <div className="mt-3 space-y-1.5">
-                  <div className="flex items-center justify-between text-xs">
+                  <div className="flex items-center justify-between text-sm">
                     <span className="text-muted-foreground">Progress</span>
                     <span className="font-medium">{goal.progress || 0}%</span>
                   </div>
                   <Progress value={goal.progress || 0} className="h-2" />
                   {goal.deadline && (
-                    <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                    <p className="text-sm text-muted-foreground flex items-center gap-1 mt-1">
                       <Calendar className="w-3 h-3" />
                       Deadline: {new Date(goal.deadline).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                     </p>
@@ -179,9 +179,9 @@ export default function GoalsPage() {
               {expandedGoal === goal.id && milestones[goal.id] && (
                 <CardContent className="pt-0">
                   <div className="border-t border-border/30 pt-3 space-y-2">
-                    <p className="text-xs font-medium text-muted-foreground mb-2">Milestones</p>
+                    <p className="text-sm font-medium text-muted-foreground mb-2">Milestones</p>
                     {milestones[goal.id].length === 0 ? (
-                      <p className="text-xs text-muted-foreground italic">No milestones yet. Click &quot;AI Breakdown&quot; to generate them.</p>
+                      <p className="text-sm text-muted-foreground italic">No milestones yet. Click &quot;AI Breakdown&quot; to generate them.</p>
                     ) : (
                       milestones[goal.id]
                         .sort((a, b) => (a.order || 0) - (b.order || 0))
@@ -196,7 +196,7 @@ export default function GoalsPage() {
                             ) : (
                               <Circle className="w-4 h-4 text-muted-foreground shrink-0" />
                             )}
-                            <span className={`text-sm ${m.isCompleted ? 'line-through text-muted-foreground' : ''}`}>
+                            <span className={`text-base ${m.isCompleted ? 'line-through text-muted-foreground' : ''}`}>
                               {m.title}
                             </span>
                           </button>
@@ -212,4 +212,6 @@ export default function GoalsPage() {
     </div>
   );
 }
+
+
 

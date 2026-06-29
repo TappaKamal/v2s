@@ -104,8 +104,8 @@ export default function CalendarPage() {
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Calendar</h1>
-          <p className="text-sm text-muted-foreground">AI-powered time blocking for your day</p>
+          <h1 className="text-3xl font-bold tracking-tight">Calendar</h1>
+          <p className="text-base text-muted-foreground">AI-powered time blocking for your day</p>
         </div>
         <div className="flex items-center gap-2">
           <Button
@@ -142,8 +142,8 @@ export default function CalendarPage() {
                   : "bg-secondary/30 text-muted-foreground hover:bg-secondary/50"
               }`}
             >
-              <span className="text-xs font-medium">{d.toLocaleDateString('en-US', { weekday: 'short' })}</span>
-              <span className="text-lg font-bold">{d.getDate()}</span>
+              <span className="text-sm font-medium">{d.toLocaleDateString('en-US', { weekday: 'short' })}</span>
+              <span className="text-xl font-bold">{d.getDate()}</span>
             </button>
           );
         })}
@@ -160,7 +160,7 @@ export default function CalendarPage() {
 
               return (
                 <div key={hour} className="flex gap-4 min-h-[60px] group">
-                  <div className={`w-14 text-xs font-medium shrink-0 pt-1 ${isPast ? 'text-muted-foreground/50' : 'text-muted-foreground'}`}>
+                  <div className={`w-14 text-sm font-medium shrink-0 pt-1 ${isPast ? 'text-muted-foreground/50' : 'text-muted-foreground'}`}>
                     {hour > 12 ? `${hour - 12} PM` : hour === 12 ? '12 PM' : `${hour} AM`}
                   </div>
                   <div className="flex-1 border-t border-border/20 pt-2 pb-4">
@@ -171,11 +171,11 @@ export default function CalendarPage() {
                           className={`p-3 rounded-lg border-l-4 mb-1 ${priorityColors[task.priority] || 'border-l-green-500 bg-green-500/5'}`}
                         >
                           <div className="flex items-center justify-between">
-                            <span className="font-medium text-sm">{task.title}</span>
-                            <Badge variant="outline" className="text-[10px]">{task.priority}</Badge>
+                            <span className="font-medium text-base">{task.title}</span>
+                            <Badge variant="outline" className="text-xs">{task.priority}</Badge>
                           </div>
                           {task.scheduledStart && task.scheduledEnd && (
-                            <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                            <p className="text-sm text-muted-foreground mt-1 flex items-center gap-1">
                               <Clock className="w-3 h-3" />
                               {task.scheduledStart.split("T")[1]?.slice(0, 5)} — {task.scheduledEnd.split("T")[1]?.slice(0, 5)}
                             </p>
@@ -195,4 +195,6 @@ export default function CalendarPage() {
     </div>
   );
 }
+
+
 

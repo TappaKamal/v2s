@@ -91,8 +91,8 @@ export default function AnalyticsPage() {
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Analytics</h1>
-          <p className="text-sm text-muted-foreground">Track your productivity patterns</p>
+          <h1 className="text-3xl font-bold tracking-tight">Analytics</h1>
+          <p className="text-base text-muted-foreground">Track your productivity patterns</p>
         </div>
         <Button
           onClick={handleAnalyze}
@@ -110,26 +110,26 @@ export default function AnalyticsPage() {
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <Card className="bg-card/50 border-border/30">
           <CardContent className="pt-6">
-            <p className="text-xs text-muted-foreground">Total Tasks</p>
-            <p className="text-3xl font-bold mt-1">{tasks.length}</p>
+            <p className="text-sm text-muted-foreground">Total Tasks</p>
+            <p className="text-4xl font-bold mt-1">{tasks.length}</p>
           </CardContent>
         </Card>
         <Card className="bg-card/50 border-border/30">
           <CardContent className="pt-6">
-            <p className="text-xs text-muted-foreground">Completed</p>
-            <p className="text-3xl font-bold mt-1 text-emerald-400">{completedTasks.length}</p>
+            <p className="text-sm text-muted-foreground">Completed</p>
+            <p className="text-4xl font-bold mt-1 text-emerald-400">{completedTasks.length}</p>
           </CardContent>
         </Card>
         <Card className="bg-card/50 border-border/30">
           <CardContent className="pt-6">
-            <p className="text-xs text-muted-foreground">Pending</p>
-            <p className="text-3xl font-bold mt-1 text-orange-400">{pendingTasks.length}</p>
+            <p className="text-sm text-muted-foreground">Pending</p>
+            <p className="text-4xl font-bold mt-1 text-orange-400">{pendingTasks.length}</p>
           </CardContent>
         </Card>
         <Card className="bg-card/50 border-border/30">
           <CardContent className="pt-6">
-            <p className="text-xs text-muted-foreground">Completion Rate</p>
-            <p className="text-3xl font-bold mt-1">{completionRate}%</p>
+            <p className="text-sm text-muted-foreground">Completion Rate</p>
+            <p className="text-4xl font-bold mt-1">{completionRate}%</p>
           </CardContent>
         </Card>
       </div>
@@ -138,8 +138,8 @@ export default function AnalyticsPage() {
       <div className="grid gap-4 md:grid-cols-2">
         <Card className="border-border/30">
           <CardHeader>
-            <CardTitle className="text-base">Weekly Activity</CardTitle>
-            <CardDescription className="text-xs">Tasks created vs completed</CardDescription>
+            <CardTitle className="text-lg">Weekly Activity</CardTitle>
+            <CardDescription className="text-sm">Tasks created vs completed</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={220}>
@@ -157,12 +157,12 @@ export default function AnalyticsPage() {
 
         <Card className="border-border/30">
           <CardHeader>
-            <CardTitle className="text-base">By Category</CardTitle>
-            <CardDescription className="text-xs">Task distribution</CardDescription>
+            <CardTitle className="text-lg">By Category</CardTitle>
+            <CardDescription className="text-sm">Task distribution</CardDescription>
           </CardHeader>
           <CardContent>
             {categoryData.length === 0 ? (
-              <div className="h-[220px] flex items-center justify-center text-muted-foreground text-sm">No data yet</div>
+              <div className="h-[220px] flex items-center justify-center text-muted-foreground text-base">No data yet</div>
             ) : (
               <ResponsiveContainer width="100%" height={220}>
                 <PieChart>
@@ -183,38 +183,38 @@ export default function AnalyticsPage() {
       {analysis && (
         <Card className="border-green-500/20 bg-gradient-to-br from-green-500/5 to-transparent">
           <CardHeader>
-            <CardTitle className="text-base flex items-center gap-2">
+            <CardTitle className="text-lg flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-green-600" />
               AI Productivity Analysis
-              <span className="ml-auto text-2xl font-bold text-green-600">{analysis.score}/100</span>
+              <span className="ml-auto text-3xl font-bold text-green-600">{analysis.score}/100</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <p className="text-sm text-foreground/80">{analysis.summary}</p>
+            <p className="text-base text-foreground/80">{analysis.summary}</p>
 
             {analysis.strengths.length > 0 && (
               <div>
-                <p className="text-xs font-medium text-emerald-400 flex items-center gap-1 mb-2"><TrendingUp className="w-3 h-3" /> Strengths</p>
+                <p className="text-sm font-medium text-emerald-400 flex items-center gap-1 mb-2"><TrendingUp className="w-3 h-3" /> Strengths</p>
                 <ul className="space-y-1">
-                  {analysis.strengths.map((s, i) => <li key={i} className="text-sm text-muted-foreground">• {s}</li>)}
+                  {analysis.strengths.map((s, i) => <li key={i} className="text-base text-muted-foreground">• {s}</li>)}
                 </ul>
               </div>
             )}
 
             {analysis.improvements.length > 0 && (
               <div>
-                <p className="text-xs font-medium text-orange-400 flex items-center gap-1 mb-2"><TrendingDown className="w-3 h-3" /> Areas to Improve</p>
+                <p className="text-sm font-medium text-orange-400 flex items-center gap-1 mb-2"><TrendingDown className="w-3 h-3" /> Areas to Improve</p>
                 <ul className="space-y-1">
-                  {analysis.improvements.map((s, i) => <li key={i} className="text-sm text-muted-foreground">• {s}</li>)}
+                  {analysis.improvements.map((s, i) => <li key={i} className="text-base text-muted-foreground">• {s}</li>)}
                 </ul>
               </div>
             )}
 
             {analysis.tips.length > 0 && (
               <div>
-                <p className="text-xs font-medium text-green-600 mb-2">💡 Tips</p>
+                <p className="text-sm font-medium text-green-600 mb-2">💡 Tips</p>
                 <ul className="space-y-1">
-                  {analysis.tips.map((s, i) => <li key={i} className="text-sm text-muted-foreground">• {s}</li>)}
+                  {analysis.tips.map((s, i) => <li key={i} className="text-base text-muted-foreground">• {s}</li>)}
                 </ul>
               </div>
             )}
@@ -224,4 +224,6 @@ export default function AnalyticsPage() {
     </div>
   );
 }
+
+
 

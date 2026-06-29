@@ -103,8 +103,8 @@ export default function TasksPage() {
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Tasks</h1>
-          <p className="text-sm text-muted-foreground">{tasks.filter(t => t.status === 'pending').length} pending · {tasks.filter(t => t.status === 'completed').length} completed</p>
+          <h1 className="text-3xl font-bold tracking-tight">Tasks</h1>
+          <p className="text-base text-muted-foreground">{tasks.filter(t => t.status === 'pending').length} pending · {tasks.filter(t => t.status === 'completed').length} completed</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <Button
@@ -132,7 +132,7 @@ export default function TasksPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search tasks..."
-            className="w-full bg-secondary/50 border border-border/50 rounded-xl pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50"
+            className="w-full bg-secondary/50 border border-border/50 rounded-xl pl-10 pr-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-green-500/50"
           />
         </div>
         <div className="flex gap-1">
@@ -140,7 +140,7 @@ export default function TasksPage() {
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-colors ${filter === f ? 'bg-green-500/15 text-green-600' : 'text-muted-foreground hover:bg-secondary/50'}`}
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium capitalize transition-colors ${filter === f ? 'bg-green-500/15 text-green-600' : 'text-muted-foreground hover:bg-secondary/50'}`}
             >
               {f}
             </button>
@@ -153,16 +153,16 @@ export default function TasksPage() {
         <Card className="border-green-500/20 bg-green-500/5">
           <CardContent className="pt-6">
             <form action={handleCreate} className="space-y-3">
-              <input name="title" placeholder="What needs to be done?" required className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50" autoFocus />
-              <textarea name="description" placeholder="Add details (optional)" rows={2} className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 resize-none" />
+              <input name="title" placeholder="What needs to be done?" required className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-green-500/50" autoFocus />
+              <textarea name="description" placeholder="Add details (optional)" rows={2} className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-green-500/50 resize-none" />
               <div className="flex gap-3 flex-wrap">
-                <select name="priority" className="bg-secondary/50 border border-border/50 rounded-xl px-3 py-2 text-sm focus:outline-none">
+                <select name="priority" className="bg-secondary/50 border border-border/50 rounded-xl px-3 py-2 text-base focus:outline-none">
                   <option value="medium">Medium Priority</option>
                   <option value="low">Low</option>
                   <option value="high">High</option>
                   <option value="urgent">Urgent</option>
                 </select>
-                <input name="dueDate" type="date" className="bg-secondary/50 border border-border/50 rounded-xl px-3 py-2 text-sm focus:outline-none" />
+                <input name="dueDate" type="date" className="bg-secondary/50 border border-border/50 rounded-xl px-3 py-2 text-base focus:outline-none" />
                 <div className="flex-1" />
                 <Button type="button" variant="ghost" size="sm" onClick={() => setShowForm(false)}>Cancel</Button>
                 <Button type="submit" size="sm" disabled={isPending} className="bg-gradient-to-r from-green-600 to-teal-600 text-white">
@@ -180,7 +180,7 @@ export default function TasksPage() {
           <div className="text-center py-16 text-muted-foreground">
             <CheckCircle2 className="w-12 h-12 mx-auto mb-3 text-green-500/30" />
             <p className="font-medium">No tasks found</p>
-            <p className="text-sm mt-1">Create your first task or use voice input!</p>
+            <p className="text-base mt-1">Create your first task or use voice input!</p>
           </div>
         ) : (
           filteredTasks.map(task => (
@@ -203,21 +203,21 @@ export default function TasksPage() {
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <h3 className={`font-medium text-sm ${task.status === 'completed' ? 'line-through text-muted-foreground' : ''}`}>
+                  <h3 className={`font-medium text-base ${task.status === 'completed' ? 'line-through text-muted-foreground' : ''}`}>
                     {task.category && <span className="mr-1">{categoryIcons[task.category] || '📌'}</span>}
                     {task.title}
                   </h3>
-                  <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${priorityColors[task.priority] || ''}`}>
+                  <Badge variant="outline" className={`text-xs px-1.5 py-0 ${priorityColors[task.priority] || ''}`}>
                     {task.priority}
                   </Badge>
                   {task.aiPriorityScore && (
-                    <span className="text-[10px] text-green-600 bg-green-500/10 px-1.5 py-0.5 rounded-full">
+                    <span className="text-xs text-green-600 bg-green-500/10 px-1.5 py-0.5 rounded-full">
                       AI: {Math.round(task.aiPriorityScore)}
                     </span>
                   )}
                 </div>
-                {task.description && <p className="text-xs text-muted-foreground mb-1">{task.description}</p>}
-                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                {task.description && <p className="text-sm text-muted-foreground mb-1">{task.description}</p>}
+                <div className="flex items-center gap-3 text-sm text-muted-foreground">
                   {task.dueDate && (
                     <span className={`flex items-center gap-1 ${new Date(task.dueDate) < new Date() && task.status !== 'completed' ? 'text-red-400' : ''}`}>
                       <Clock className="w-3 h-3" />
@@ -246,4 +246,6 @@ export default function TasksPage() {
     </div>
   );
 }
+
+
 

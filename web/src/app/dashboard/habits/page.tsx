@@ -71,8 +71,8 @@ export default function HabitsPage() {
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Habits</h1>
-          <p className="text-sm text-muted-foreground">Build consistency with daily tracking</p>
+          <h1 className="text-3xl font-bold tracking-tight">Habits</h1>
+          <p className="text-base text-muted-foreground">Build consistency with daily tracking</p>
         </div>
         <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2 rounded-full bg-gradient-to-r from-green-600 to-teal-600 text-white">
           <Plus className="w-4 h-4" /> New Habit
@@ -83,9 +83,9 @@ export default function HabitsPage() {
         <Card className="border-green-500/20 bg-green-500/5">
           <CardContent className="pt-6">
             <form action={handleCreate} className="space-y-3">
-              <input name="title" placeholder="e.g., Meditate for 10 minutes" required className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50" autoFocus />
+              <input name="title" placeholder="e.g., Meditate for 10 minutes" required className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-green-500/50" autoFocus />
               <div className="flex gap-3 items-center flex-wrap">
-                <select name="frequency" className="bg-secondary/50 border border-border/50 rounded-xl px-3 py-2 text-sm">
+                <select name="frequency" className="bg-secondary/50 border border-border/50 rounded-xl px-3 py-2 text-base">
                   <option value="daily">Daily</option>
                   <option value="weekly">Weekly</option>
                 </select>
@@ -109,20 +109,20 @@ export default function HabitsPage() {
         <div className="text-center py-16 text-muted-foreground">
           <Repeat className="w-12 h-12 mx-auto mb-3 text-green-500/30" />
           <p className="font-medium">No habits yet</p>
-          <p className="text-sm mt-1">Start building consistent habits!</p>
+          <p className="text-base mt-1">Start building consistent habits!</p>
         </div>
       ) : (
         <Card className="border-border/30">
           <CardContent className="pt-6">
             {/* Header: Day labels */}
             <div className="grid grid-cols-[1fr_repeat(7,40px)_60px] gap-2 items-center mb-3">
-              <div className="text-xs font-medium text-muted-foreground">Habit</div>
+              <div className="text-sm font-medium text-muted-foreground">Habit</div>
               {last7Days.map(date => (
-                <div key={date} className="text-center text-xs text-muted-foreground">
+                <div key={date} className="text-center text-sm text-muted-foreground">
                   {new Date(date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short' }).slice(0, 2)}
                 </div>
               ))}
-              <div className="text-xs font-medium text-muted-foreground text-center">Streak</div>
+              <div className="text-sm font-medium text-muted-foreground text-center">Streak</div>
             </div>
 
             {/* Habit rows */}
@@ -130,7 +130,7 @@ export default function HabitsPage() {
               <div key={habit.id} className="grid grid-cols-[1fr_repeat(7,40px)_60px] gap-2 items-center py-2 border-t border-border/20 group">
                 <div className="flex items-center gap-2 min-w-0">
                   <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: habit.color || '#8b5cf6' }} />
-                  <span className="text-sm font-medium truncate">{habit.title}</span>
+                  <span className="text-base font-medium truncate">{habit.title}</span>
                   <button
                     onClick={() => startTransition(() => deleteHabit(habit.id).then(loadData))}
                     className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
@@ -157,7 +157,7 @@ export default function HabitsPage() {
                 })}
                 <div className="text-center flex items-center justify-center gap-1">
                   <Flame className="w-3 h-3 text-orange-500" />
-                  <span className="text-sm font-semibold">{habit.streak || 0}</span>
+                  <span className="text-base font-semibold">{habit.streak || 0}</span>
                 </div>
               </div>
             ))}
@@ -167,4 +167,6 @@ export default function HabitsPage() {
     </div>
   );
 }
+
+
 

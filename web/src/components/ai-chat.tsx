@@ -117,7 +117,7 @@ export default function AiChat({ isOpen, onClose }: { isOpen: boolean; onClose: 
               {msg.content || (
                 <div className="flex items-center gap-2">
                   <Loader2 className="w-3.5 h-3.5 animate-spin text-green-500" />
-                  <span className="text-slate-500 font-medium text-sm">Thinking...</span>
+                  <span className="text-slate-500 font-medium text-base">Thinking...</span>
                 </div>
               )}
             </div>
@@ -136,7 +136,7 @@ export default function AiChat({ isOpen, onClose }: { isOpen: boolean; onClose: 
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
             placeholder="Ask Disha anything..."
-            className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 text-slate-900 placeholder:text-slate-400 font-medium transition-all"
+            className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 text-slate-900 placeholder:text-slate-400 font-medium transition-all"
           />
           <Button
             onClick={sendMessage}
@@ -151,4 +151,6 @@ export default function AiChat({ isOpen, onClose }: { isOpen: boolean; onClose: 
     </div>
   );
 }
+
+
 

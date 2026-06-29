@@ -34,7 +34,7 @@ export default function DashboardLayout({
           <div className="bg-gradient-to-br from-green-500 to-teal-600 p-1.5 rounded-lg">
             <Stethoscope className="w-5 h-5 text-white" />
           </div>
-          <span className="text-lg font-bold tracking-tight">LifeSaver AI</span>
+          <span className="text-xl font-bold tracking-tight">LifeSaver AI</span>
         </div>
         <nav className="flex-1 px-3 py-4 space-y-1">
           {navItems.map(({ href, icon: Icon, label }) => {
@@ -43,7 +43,7 @@ export default function DashboardLayout({
               <Link
                 key={href}
                 href={href}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 ${
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-base transition-all duration-200 ${
                   isActive
                     ? "bg-gradient-to-r from-green-500/15 to-teal-500/10 text-green-600 shadow-sm"
                     : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
@@ -56,11 +56,11 @@ export default function DashboardLayout({
           })}
         </nav>
         <div className="p-3 border-t border-border/50 space-y-1">
-          <Link href="/dashboard/settings" className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors ${pathname === '/dashboard/settings' ? 'bg-secondary/50 text-foreground' : ''}`}>
+          <Link href="/dashboard/settings" className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-base text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors ${pathname === '/dashboard/settings' ? 'bg-secondary/50 text-foreground' : ''}`}>
             <Settings className="w-5 h-5" /> Settings
           </Link>
           <form action={signOutAction}>
-            <button type="submit" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-muted-foreground hover:text-red-400 hover:bg-red-500/10 transition-colors">
+            <button type="submit" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-base text-muted-foreground hover:text-red-400 hover:bg-red-500/10 transition-colors">
               <LogOut className="w-5 h-5" /> Sign Out
             </button>
           </form>
@@ -77,7 +77,7 @@ export default function DashboardLayout({
                 <div className="bg-gradient-to-br from-green-500 to-teal-600 p-1.5 rounded-lg">
                   <Stethoscope className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-lg font-bold">LifeSaver AI</span>
+                <span className="text-xl font-bold">LifeSaver AI</span>
               </div>
               <button onClick={() => setMobileMenuOpen(false)}>
                 <X className="w-5 h-5 text-muted-foreground" />
@@ -91,7 +91,7 @@ export default function DashboardLayout({
                     key={href}
                     href={href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all ${
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-base transition-all ${
                       isActive
                         ? "bg-gradient-to-r from-green-500/15 to-teal-500/10 text-green-600"
                         : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
@@ -138,4 +138,6 @@ export default function DashboardLayout({
     </div>
   );
 }
+
+
 

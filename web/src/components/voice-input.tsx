@@ -118,19 +118,21 @@ export default function VoiceInput() {
       </Button>
 
       {transcript && (
-        <span className="text-sm text-muted-foreground italic max-w-xs truncate">
+        <span className="text-base text-muted-foreground italic max-w-xs truncate">
           "{transcript}"
         </span>
       )}
 
       {status === "success" && (
-        <span className="text-sm text-green-500 font-medium">✓ Task created!</span>
+        <span className="text-base text-green-500 font-medium">✓ Task created!</span>
       )}
 
       {status === "error" && (
-        <span className="text-sm text-red-400">Voice not supported or failed</span>
+        <span className="text-base text-red-400">Voice not supported or failed</span>
       )}
     </div>
   );
 }
+
+
 
