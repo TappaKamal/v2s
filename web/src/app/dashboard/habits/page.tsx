@@ -74,16 +74,16 @@ export default function HabitsPage() {
           <h1 className="text-2xl font-bold tracking-tight">Habits</h1>
           <p className="text-sm text-muted-foreground">Build consistency with daily tracking</p>
         </div>
-        <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white">
+        <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2 rounded-full bg-gradient-to-r from-green-600 to-teal-600 text-white">
           <Plus className="w-4 h-4" /> New Habit
         </Button>
       </div>
 
       {showForm && (
-        <Card className="border-violet-500/20 bg-violet-500/5">
+        <Card className="border-green-500/20 bg-green-500/5">
           <CardContent className="pt-6">
             <form action={handleCreate} className="space-y-3">
-              <input name="title" placeholder="e.g., Meditate for 10 minutes" required className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/50" autoFocus />
+              <input name="title" placeholder="e.g., Meditate for 10 minutes" required className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50" autoFocus />
               <div className="flex gap-3 items-center flex-wrap">
                 <select name="frequency" className="bg-secondary/50 border border-border/50 rounded-xl px-3 py-2 text-sm">
                   <option value="daily">Daily</option>
@@ -98,7 +98,7 @@ export default function HabitsPage() {
                 </div>
                 <div className="flex-1" />
                 <Button type="button" variant="ghost" size="sm" onClick={() => setShowForm(false)}>Cancel</Button>
-                <Button type="submit" size="sm" disabled={isPending} className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white">Create</Button>
+                <Button type="submit" size="sm" disabled={isPending} className="bg-gradient-to-r from-green-600 to-teal-600 text-white">Create</Button>
               </div>
             </form>
           </CardContent>
@@ -107,7 +107,7 @@ export default function HabitsPage() {
 
       {habits.length === 0 ? (
         <div className="text-center py-16 text-muted-foreground">
-          <Repeat className="w-12 h-12 mx-auto mb-3 text-violet-500/30" />
+          <Repeat className="w-12 h-12 mx-auto mb-3 text-green-500/30" />
           <p className="font-medium">No habits yet</p>
           <p className="text-sm mt-1">Start building consistent habits!</p>
         </div>
@@ -167,3 +167,4 @@ export default function HabitsPage() {
     </div>
   );
 }
+

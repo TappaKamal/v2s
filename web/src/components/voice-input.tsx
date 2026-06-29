@@ -93,7 +93,7 @@ export default function VoiceInput() {
         className={`gap-2 rounded-full transition-all ${
           isListening
             ? "bg-red-500 hover:bg-red-600 text-white animate-pulse"
-            : "border-violet-500/30 hover:bg-violet-500/10 hover:text-violet-400"
+            : "border-green-500/30 hover:bg-green-500/10 hover:text-green-600"
         }`}
       >
         {isProcessing ? (
@@ -122,3 +122,4 @@ export default function VoiceInput() {
     </div>
   );
 }
+

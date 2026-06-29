@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Activity,
-  Brain, 
+  Stethoscope, 
   CalendarDays,
   ChevronDown,
   Clock,
@@ -13,7 +13,6 @@ import {
   ListTodo,
   MessageCircle,
   ShieldCheck,
-  Stethoscope,
   TrendingUp,
   ArrowRight
 } from "lucide-react";
@@ -296,3 +295,4 @@ export default function Home() {
     </div>
   );
 }
+

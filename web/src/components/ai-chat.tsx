@@ -151,3 +151,4 @@ export default function AiChat({ isOpen, onClose }: { isOpen: boolean; onClose: 
     </div>
   );
 }
+

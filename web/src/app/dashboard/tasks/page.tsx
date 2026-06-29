@@ -114,12 +114,12 @@ export default function TasksPage() {
             variant="outline"
             size="sm"
             disabled={isAIPrioritizing}
-            className="gap-2 rounded-full border-violet-500/30 hover:bg-violet-500/10 hover:text-violet-400"
+            className="gap-2 rounded-full border-green-500/30 hover:bg-green-500/10 hover:text-green-600"
           >
             <Sparkles className="w-4 h-4" />
             {isAIPrioritizing ? "Analyzing..." : "AI Prioritize"}
           </Button>
-          <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white">
+          <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2 rounded-full bg-gradient-to-r from-green-600 to-teal-600 text-white">
             <Plus className="w-4 h-4" /> Add Task
           </Button>
         </div>
@@ -134,7 +134,7 @@ export default function TasksPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search tasks..."
-            className="w-full bg-secondary/50 border border-border/50 rounded-xl pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/50"
+            className="w-full bg-secondary/50 border border-border/50 rounded-xl pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50"
           />
         </div>
         <div className="flex gap-1">
@@ -142,7 +142,7 @@ export default function TasksPage() {
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-colors ${filter === f ? 'bg-violet-500/15 text-violet-400' : 'text-muted-foreground hover:bg-secondary/50'}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-colors ${filter === f ? 'bg-green-500/15 text-green-600' : 'text-muted-foreground hover:bg-secondary/50'}`}
             >
               {f}
             </button>
@@ -152,11 +152,11 @@ export default function TasksPage() {
 
       {/* New Task Form */}
       {showForm && (
-        <Card className="border-violet-500/20 bg-violet-500/5">
+        <Card className="border-green-500/20 bg-green-500/5">
           <CardContent className="pt-6">
             <form action={handleCreate} className="space-y-3">
-              <input name="title" placeholder="What needs to be done?" required className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/50" autoFocus />
-              <textarea name="description" placeholder="Add details (optional)" rows={2} className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/50 resize-none" />
+              <input name="title" placeholder="What needs to be done?" required className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50" autoFocus />
+              <textarea name="description" placeholder="Add details (optional)" rows={2} className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 resize-none" />
               <div className="flex gap-3 flex-wrap">
                 <select name="priority" className="bg-secondary/50 border border-border/50 rounded-xl px-3 py-2 text-sm focus:outline-none">
                   <option value="medium">Medium Priority</option>
@@ -167,7 +167,7 @@ export default function TasksPage() {
                 <input name="dueDate" type="date" className="bg-secondary/50 border border-border/50 rounded-xl px-3 py-2 text-sm focus:outline-none" />
                 <div className="flex-1" />
                 <Button type="button" variant="ghost" size="sm" onClick={() => setShowForm(false)}>Cancel</Button>
-                <Button type="submit" size="sm" disabled={isPending} className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white">
+                <Button type="submit" size="sm" disabled={isPending} className="bg-gradient-to-r from-green-600 to-teal-600 text-white">
                   {isPending ? "Creating..." : "Create Task"}
                 </Button>
               </div>
@@ -180,7 +180,7 @@ export default function TasksPage() {
       <div className="space-y-2">
         {filteredTasks.length === 0 ? (
           <div className="text-center py-16 text-muted-foreground">
-            <CheckCircle2 className="w-12 h-12 mx-auto mb-3 text-violet-500/30" />
+            <CheckCircle2 className="w-12 h-12 mx-auto mb-3 text-green-500/30" />
             <p className="font-medium">No tasks found</p>
             <p className="text-sm mt-1">Create your first task or use voice input!</p>
           </div>
@@ -199,7 +199,7 @@ export default function TasksPage() {
                 {task.status === 'completed' ? (
                   <CheckCircle2 className="w-5 h-5 text-emerald-500" />
                 ) : (
-                  <Circle className="w-5 h-5 text-muted-foreground hover:text-violet-400 transition-colors" />
+                  <Circle className="w-5 h-5 text-muted-foreground hover:text-green-600 transition-colors" />
                 )}
               </button>
 
@@ -213,7 +213,7 @@ export default function TasksPage() {
                     {task.priority}
                   </Badge>
                   {task.aiPriorityScore && (
-                    <span className="text-[10px] text-violet-400 bg-violet-500/10 px-1.5 py-0.5 rounded-full">
+                    <span className="text-[10px] text-green-600 bg-green-500/10 px-1.5 py-0.5 rounded-full">
                       AI: {Math.round(task.aiPriorityScore)}
                     </span>
                   )}
@@ -228,7 +228,7 @@ export default function TasksPage() {
                   )}
                   {task.estimatedMinutes && <span>{task.estimatedMinutes}min</span>}
                   {task.aiSuggestion && (
-                    <span className="text-violet-400 italic truncate max-w-[200px]" title={task.aiSuggestion}>
+                    <span className="text-green-600 italic truncate max-w-[200px]" title={task.aiSuggestion}>
                       💡 {task.aiSuggestion}
                     </span>
                   )}
@@ -248,3 +248,4 @@ export default function TasksPage() {
     </div>
   );
 }
+

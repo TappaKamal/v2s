@@ -99,7 +99,7 @@ export default function AnalyticsPage() {
           variant="outline"
           size="sm"
           disabled={isAnalyzing}
-          className="gap-2 rounded-full border-violet-500/30 hover:bg-violet-500/10 hover:text-violet-400"
+          className="gap-2 rounded-full border-green-500/30 hover:bg-green-500/10 hover:text-green-600"
         >
           {isAnalyzing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
           AI Analysis
@@ -181,12 +181,12 @@ export default function AnalyticsPage() {
 
       {/* AI Analysis */}
       {analysis && (
-        <Card className="border-violet-500/20 bg-gradient-to-br from-violet-500/5 to-transparent">
+        <Card className="border-green-500/20 bg-gradient-to-br from-green-500/5 to-transparent">
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-violet-400" />
+              <Sparkles className="w-4 h-4 text-green-600" />
               AI Productivity Analysis
-              <span className="ml-auto text-2xl font-bold text-violet-400">{analysis.score}/100</span>
+              <span className="ml-auto text-2xl font-bold text-green-600">{analysis.score}/100</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -212,7 +212,7 @@ export default function AnalyticsPage() {
 
             {analysis.tips.length > 0 && (
               <div>
-                <p className="text-xs font-medium text-violet-400 mb-2">💡 Tips</p>
+                <p className="text-xs font-medium text-green-600 mb-2">💡 Tips</p>
                 <ul className="space-y-1">
                   {analysis.tips.map((s, i) => <li key={i} className="text-sm text-muted-foreground">• {s}</li>)}
                 </ul>
@@ -224,3 +224,4 @@ export default function AnalyticsPage() {
     </div>
   );
 }
+

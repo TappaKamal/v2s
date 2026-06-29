@@ -45,7 +45,7 @@ export default async function SettingsPage() {
         <CardContent className="space-y-3">
           <div className="flex items-center justify-between py-2">
             <span className="text-sm text-muted-foreground">AI Model</span>
-            <Badge variant="outline" className="bg-violet-500/10 text-violet-400 border-violet-500/20">Gemini 2.5 Flash</Badge>
+            <Badge variant="outline" className="bg-green-500/10 text-green-600 border-green-500/20">Gemini 2.5 Flash</Badge>
           </div>
           <div className="flex items-center justify-between py-2 border-t border-border/20">
             <span className="text-sm text-muted-foreground">API Status</span>
@@ -78,3 +78,4 @@ export default async function SettingsPage() {
     </div>
   );
 }
+

@@ -97,22 +97,22 @@ export default function GoalsPage() {
           <h1 className="text-2xl font-bold tracking-tight">Goals</h1>
           <p className="text-sm text-muted-foreground">{goals.filter(g => g.status === 'active').length} active goals</p>
         </div>
-        <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white">
+        <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2 rounded-full bg-gradient-to-r from-green-600 to-teal-600 text-white">
           <Plus className="w-4 h-4" /> New Goal
         </Button>
       </div>
 
       {showForm && (
-        <Card className="border-violet-500/20 bg-violet-500/5">
+        <Card className="border-green-500/20 bg-green-500/5">
           <CardContent className="pt-6">
             <form action={handleCreate} className="space-y-3">
-              <input name="title" placeholder="What do you want to achieve?" required className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/50" autoFocus />
-              <textarea name="description" placeholder="Describe your goal (optional)" rows={2} className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/50 resize-none" />
+              <input name="title" placeholder="What do you want to achieve?" required className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50" autoFocus />
+              <textarea name="description" placeholder="Describe your goal (optional)" rows={2} className="w-full bg-secondary/50 border border-border/50 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 resize-none" />
               <div className="flex gap-3 items-center">
                 <input name="deadline" type="date" className="bg-secondary/50 border border-border/50 rounded-xl px-3 py-2 text-sm focus:outline-none" />
                 <div className="flex-1" />
                 <Button type="button" variant="ghost" size="sm" onClick={() => setShowForm(false)}>Cancel</Button>
-                <Button type="submit" size="sm" disabled={isPending} className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white">Create Goal</Button>
+                <Button type="submit" size="sm" disabled={isPending} className="bg-gradient-to-r from-green-600 to-teal-600 text-white">Create Goal</Button>
               </div>
             </form>
           </CardContent>
@@ -122,7 +122,7 @@ export default function GoalsPage() {
       <div className="space-y-4">
         {goals.length === 0 ? (
           <div className="text-center py-16 text-muted-foreground">
-            <Target className="w-12 h-12 mx-auto mb-3 text-violet-500/30" />
+            <Target className="w-12 h-12 mx-auto mb-3 text-green-500/30" />
             <p className="font-medium">No goals yet</p>
             <p className="text-sm mt-1">Set your first goal and let AI break it down!</p>
           </div>
@@ -133,7 +133,7 @@ export default function GoalsPage() {
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <CardTitle className="text-base flex items-center gap-2">
-                      <Target className="w-4 h-4 text-violet-500" />
+                      <Target className="w-4 h-4 text-green-500" />
                       {goal.title}
                     </CardTitle>
                     {goal.description && <CardDescription className="mt-1 text-xs">{goal.description}</CardDescription>}
@@ -145,7 +145,7 @@ export default function GoalsPage() {
                         variant="outline"
                         size="sm"
                         disabled={decomposingGoalId === goal.id}
-                        className="gap-1 text-xs rounded-full border-violet-500/30 hover:bg-violet-500/10 hover:text-violet-400"
+                        className="gap-1 text-xs rounded-full border-green-500/30 hover:bg-green-500/10 hover:text-green-600"
                       >
                         <Sparkles className="w-3 h-3" />
                         {decomposingGoalId === goal.id ? "Breaking down..." : "AI Breakdown"}
@@ -212,3 +212,4 @@ export default function GoalsPage() {
     </div>
   );
 }
+

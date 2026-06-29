@@ -113,7 +113,7 @@ export default function CalendarPage() {
             variant="outline"
             size="sm"
             disabled={isScheduling}
-            className="gap-2 rounded-full border-violet-500/30 hover:bg-violet-500/10 hover:text-violet-400"
+            className="gap-2 rounded-full border-green-500/30 hover:bg-green-500/10 hover:text-green-600"
           >
             <Sparkles className="w-4 h-4" />
             {isScheduling ? "Scheduling..." : "Auto-Schedule Day"}
@@ -136,9 +136,9 @@ export default function CalendarPage() {
               onClick={() => setSelectedDate(date)}
               className={`flex flex-col items-center gap-1 px-4 py-3 rounded-xl min-w-[60px] transition-all ${
                 isSelected
-                  ? "bg-gradient-to-b from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-500/25"
+                  ? "bg-gradient-to-b from-green-600 to-teal-600 text-white shadow-lg shadow-green-500/25"
                   : isToday
-                  ? "bg-violet-500/10 text-violet-400 border border-violet-500/20"
+                  ? "bg-green-500/10 text-green-600 border border-green-500/20"
                   : "bg-secondary/30 text-muted-foreground hover:bg-secondary/50"
               }`}
             >
@@ -168,7 +168,7 @@ export default function CalendarPage() {
                       hourTasks.map(task => (
                         <div
                           key={task.id}
-                          className={`p-3 rounded-lg border-l-4 mb-1 ${priorityColors[task.priority] || 'border-l-violet-500 bg-violet-500/5'}`}
+                          className={`p-3 rounded-lg border-l-4 mb-1 ${priorityColors[task.priority] || 'border-l-green-500 bg-green-500/5'}`}
                         >
                           <div className="flex items-center justify-between">
                             <span className="font-medium text-sm">{task.title}</span>
@@ -195,3 +195,4 @@ export default function CalendarPage() {
     </div>
   );
 }
+

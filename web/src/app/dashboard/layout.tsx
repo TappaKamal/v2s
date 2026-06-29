@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, CheckSquare, Calendar as CalendarIcon, Target, BarChart3, Repeat, Settings, Brain, LogOut, MessageCircle, Menu, X } from "lucide-react";
+import { LayoutDashboard, CheckSquare, Calendar as CalendarIcon, Target, BarChart3, Repeat, Settings, Stethoscope, LogOut, MessageCircle, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signOutAction } from "@/app/actions/auth";
 import { useState } from "react";
@@ -31,8 +31,8 @@ export default function DashboardLayout({
       {/* Desktop Sidebar */}
       <aside className="w-64 border-r border-border/50 bg-card/30 backdrop-blur-md hidden md:flex flex-col">
         <div className="h-16 flex items-center gap-2 px-6 border-b border-border/50">
-          <div className="bg-gradient-to-br from-violet-500 to-indigo-600 p-1.5 rounded-lg">
-            <Brain className="w-5 h-5 text-white" />
+          <div className="bg-gradient-to-br from-green-500 to-teal-600 p-1.5 rounded-lg">
+            <Stethoscope className="w-5 h-5 text-white" />
           </div>
           <span className="text-lg font-bold tracking-tight">LifeSaver AI</span>
         </div>
@@ -45,7 +45,7 @@ export default function DashboardLayout({
                 href={href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 ${
                   isActive
-                    ? "bg-gradient-to-r from-violet-500/15 to-indigo-500/10 text-violet-400 shadow-sm"
+                    ? "bg-gradient-to-r from-green-500/15 to-teal-500/10 text-green-600 shadow-sm"
                     : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                 }`}
               >
@@ -74,8 +74,8 @@ export default function DashboardLayout({
           <aside className="absolute left-0 top-0 bottom-0 w-72 bg-card border-r border-border/50 flex flex-col animate-in slide-in-from-left">
             <div className="h-16 flex items-center justify-between px-6 border-b border-border/50">
               <div className="flex items-center gap-2">
-                <div className="bg-gradient-to-br from-violet-500 to-indigo-600 p-1.5 rounded-lg">
-                  <Brain className="w-5 h-5 text-white" />
+                <div className="bg-gradient-to-br from-green-500 to-teal-600 p-1.5 rounded-lg">
+                  <Stethoscope className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-lg font-bold">LifeSaver AI</span>
               </div>
@@ -93,7 +93,7 @@ export default function DashboardLayout({
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all ${
                       isActive
-                        ? "bg-gradient-to-r from-violet-500/15 to-indigo-500/10 text-violet-400"
+                        ? "bg-gradient-to-r from-green-500/15 to-teal-500/10 text-green-600"
                         : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                     }`}
                   >
@@ -108,8 +108,12 @@ export default function DashboardLayout({
       )}
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <header className="h-16 border-b border-border/50 flex items-center justify-between px-6 bg-background/80 backdrop-blur-md">
+      <main className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+        {/* Watermark */}
+        <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-[0.02] z-0 overflow-hidden">
+          <Stethoscope className="w-[40rem] h-[40rem] text-green-900 -rotate-12" />
+        </div>
+        <header className="h-16 border-b border-border/50 flex items-center justify-between px-6 bg-background/80 backdrop-blur-md relative z-10">
           <button className="md:hidden" onClick={() => setMobileMenuOpen(true)}>
             <Menu className="w-6 h-6 text-muted-foreground" />
           </button>
@@ -118,13 +122,13 @@ export default function DashboardLayout({
             onClick={() => setChatOpen(!chatOpen)}
             variant="outline"
             size="sm"
-            className="gap-2 rounded-full border-violet-500/30 hover:bg-violet-500/10 hover:text-violet-400"
+            className="gap-2 rounded-full border-green-500/30 hover:bg-green-500/10 hover:text-green-600"
           >
             <MessageCircle className="w-4 h-4" />
             <span className="hidden sm:inline">AI Assistant</span>
           </Button>
         </header>
-        <div className="flex-1 overflow-auto p-4 md:p-6">
+        <div className="flex-1 overflow-auto p-4 md:p-6 relative z-10">
           {children}
         </div>
       </main>
@@ -134,3 +138,4 @@ export default function DashboardLayout({
     </div>
   );
 }
+
