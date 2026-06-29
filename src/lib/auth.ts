@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { db } from '@/db';
-import { users } from '@/db/schema';
-import { eq } from 'drizzle-orm';
+import { users, passwordResetTokens } from '@/db/schema';
+import { eq, and } from 'drizzle-orm';
 import { v4 as uuidv4 } from 'uuid';
 import crypto from 'crypto';
 
@@ -115,4 +115,59 @@ export async function requireAuth() {
   const session = await getSession();
   if (!session) throw new Error('Unauthorized');
   return session;
+}
+
+export async function requestPasswordReset(email: string) {
+  const result = await db.select().from(users).where(eq(users.email, email));
+  if (result.length === 0) {
+    // Return true even if not found to prevent email enumeration
+    return { success: true };
+  }
+  
+  const user = result[0];
+  const token = crypto.randomBytes(32).toString('hex');
+  const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString(); // 1 hour
+  
+  // Clear any existing tokens for this user
+  await db.delete(passwordResetTokens).where(eq(passwordResetTokens.userId, user.id));
+  
+  await db.insert(passwordResetTokens).values({
+    id: uuidv4(),
+    userId: user.id,
+    token,
+    expiresAt,
+  });
+  
+  return { success: true, token };
+}
+
+export async function verifyAndResetPassword(token: string, newPassword: string) {
+  const tokenResult = await db.select().from(passwordResetTokens).where(eq(passwordResetTokens.token, token));
+  if (tokenResult.length === 0) {
+    return { error: 'Invalid or expired token' };
+  }
+  
+  const resetData = tokenResult[0];
+  if (new Date(resetData.expiresAt) < new Date()) {
+    await db.delete(passwordResetTokens).where(eq(passwordResetTokens.id, resetData.id));
+    return { error: 'Token has expired' };
+  }
+  
+  const passwordHash = hashPassword(newPassword);
+  
+  await db.update(users).set({ passwordHash }).where(eq(users.id, resetData.userId));
+  await db.delete(passwordResetTokens).where(eq(passwordResetTokens.id, resetData.id));
+  
+  // Log them in immediately after reset
+  const sessionToken = signSession(resetData.userId);
+  const cookieStore = await cookies();
+  cookieStore.set(SESSION_COOKIE, sessionToken, {
+    httpOnly: true,
+    secure: false,
+    sameSite: 'lax',
+    maxAge: 7 * 24 * 60 * 60,
+    path: '/',
+  });
+  
+  return { success: true };
 }

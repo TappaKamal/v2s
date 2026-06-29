@@ -40,3 +40,31 @@ export async function signOutAction() {
   await authSignOut();
   redirect("/");
 }
+
+export async function requestPasswordResetAction(formData: FormData) {
+  const email = formData.get("email") as string;
+  if (!email) {
+    return { error: "Email is required" };
+  }
+  
+  const { requestPasswordReset } = await import("@/lib/auth");
+  const result = await requestPasswordReset(email);
+  return result; // contains token
+}
+
+export async function resetPasswordAction(formData: FormData) {
+  const token = formData.get("token") as string;
+  const password = formData.get("password") as string;
+  
+  if (!token || !password) {
+    return { error: "Token and new password are required" };
+  }
+  
+  const { verifyAndResetPassword } = await import("@/lib/auth");
+  const result = await verifyAndResetPassword(token, password);
+  if (result.error) {
+    return { error: result.error };
+  }
+  
+  redirect("/dashboard");
+}

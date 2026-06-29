@@ -104,3 +104,12 @@ export const productivitySessions = sqliteTable('productivity_sessions', {
   focusMinutes: integer('focus_minutes').default(0),
   productivityScore: real('productivity_score'), // AI-generated 0-100
 });
+
+// ──────────── Password Reset Tokens ────────────
+export const passwordResetTokens = sqliteTable('password_reset_tokens', {
+  id: text('id').primaryKey(),
+  userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  token: text('token').notNull().unique(),
+  expiresAt: text('expires_at').notNull(), // ISO string
+  createdAt: text('created_at').default(sql`(datetime('now'))`),
+});

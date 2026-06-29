@@ -124,6 +124,14 @@ async function initializeDatabase() {
       focus_minutes INTEGER DEFAULT 0,
       productivity_score REAL
     );
+
+    CREATE TABLE IF NOT EXISTS password_reset_tokens (
+      id TEXT PRIMARY KEY,
+      user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      token TEXT NOT NULL UNIQUE,
+      expires_at TEXT NOT NULL,
+      created_at TEXT DEFAULT (datetime('now'))
+    );
   `;
 
   // executeMultiple is required for multiple statements in libsql

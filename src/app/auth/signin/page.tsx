@@ -50,7 +50,12 @@ export default function SignInPage() {
                 className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all font-medium placeholder:text-slate-400" />
             </div>
             <div>
-              <label className="text-base font-bold text-slate-700 mb-2 block">Password</label>
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-base font-bold text-slate-700">Password</label>
+                <Link href="/auth/forgot-password" className="text-sm text-green-600 hover:underline font-bold">
+                  Forgot password?
+                </Link>
+              </div>
               <input name="password" type="password" required placeholder="••••••••"
                 className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all font-medium placeholder:text-slate-400" />
             </div>
