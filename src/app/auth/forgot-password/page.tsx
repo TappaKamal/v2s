@@ -2,33 +2,82 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { requestPasswordResetAction } from "@/app/actions/auth";
+import { requestPasswordResetAction, verifyOtpAction, resetPasswordAction } from "@/app/actions/auth";
 
 export default function ForgotPasswordPage() {
+  const [step, setStep] = useState<"email" | "otp" | "password">("email");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [successLink, setSuccessLink] = useState<string | null>(null);
+  
+  // State for the wizard
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
+  const [mockOtp, setMockOtp] = useState<string | null>(null);
 
-  async function onSubmit(formData: FormData) {
+  async function handleEmailSubmit(formData: FormData) {
     setLoading(true);
     setError(null);
-    setSuccessLink(null);
+    setMockOtp(null);
+
+    const emailInput = formData.get("email") as string;
+    setEmail(emailInput);
 
     try {
       const result = await requestPasswordResetAction(formData);
       if (result.error) {
         setError(result.error);
       } else if (result.success) {
-        // In a real app, this would send an email. For now, show the link.
         if (result.token) {
-          const url = new URL(window.location.href);
-          const resetUrl = `${url.origin}/auth/reset-password?token=${result.token}`;
-          setSuccessLink(resetUrl);
-        } else {
-          // If token isn't returned (e.g. email not found to prevent enumeration)
-          setSuccessLink("If an account exists, a reset link was generated.");
+          setMockOtp(result.token);
         }
+        setStep("otp");
       }
+    } catch (e) {
+      setError("An unexpected error occurred.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleOtpSubmit(formData: FormData) {
+    setLoading(true);
+    setError(null);
+    
+    const otpInput = formData.get("otp") as string;
+    setOtp(otpInput);
+    
+    // We need to inject the email into the form data
+    formData.append("email", email);
+
+    try {
+      const result = await verifyOtpAction(formData);
+      if (result.error) {
+        setError(result.error);
+      } else if (result.success) {
+        setStep("password");
+        setMockOtp(null);
+      }
+    } catch (e) {
+      setError("An unexpected error occurred.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handlePasswordSubmit(formData: FormData) {
+    setLoading(true);
+    setError(null);
+    
+    // Inject email and otp
+    formData.append("email", email);
+    formData.append("otp", otp);
+
+    try {
+      const result = await resetPasswordAction(formData);
+      if (result && result.error) {
+        setError(result.error);
+      }
+      // If success, the action redirects to /dashboard automatically
     } catch (e) {
       setError("An unexpected error occurred.");
     } finally {
@@ -46,11 +95,25 @@ export default function ForgotPasswordPage() {
         <div className="mb-10 text-center">
           <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-green-500/30">
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              {step === "password" ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+              ) : step === "otp" ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              )}
             </svg>
           </div>
-          <h1 className="text-3xl font-extrabold text-slate-900 mb-3 tracking-tight">Forgot Password</h1>
-          <p className="text-base text-slate-500 font-medium">Enter your email to receive a reset link.</p>
+          <h1 className="text-3xl font-extrabold text-slate-900 mb-3 tracking-tight">
+            {step === "email" && "Forgot Password"}
+            {step === "otp" && "Verify Code"}
+            {step === "password" && "Set New Password"}
+          </h1>
+          <p className="text-base text-slate-500 font-medium">
+            {step === "email" && "Enter your email to receive a 6-digit code."}
+            {step === "otp" && `Enter the 6-digit code sent to ${email}`}
+            {step === "password" && "Please choose a strong password for your account."}
+          </p>
         </div>
 
         {error && (
@@ -62,30 +125,20 @@ export default function ForgotPasswordPage() {
           </div>
         )}
 
-        {successLink ? (
-          <div className="mb-6 p-6 bg-green-50 rounded-xl border border-green-100 text-center">
-            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-bold text-slate-900 mb-2">Request Processed</h3>
-            <p className="text-sm text-slate-600 mb-4">
-              Normally we would email you a link. For this demo, here is your reset link:
+        {step === "otp" && mockOtp && (
+          <div className="mb-6 p-4 bg-green-50 rounded-xl border border-green-100 text-center">
+            <p className="text-sm text-slate-600 mb-2">
+              (Demo) Your 6-digit verification code is:
             </p>
-            {successLink.startsWith("http") ? (
-              <a href={successLink} className="inline-block px-4 py-2 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition-colors break-all text-sm">
-                Click here to reset password
-              </a>
-            ) : (
-              <p className="text-sm font-bold text-slate-800">{successLink}</p>
-            )}
+            <p className="text-2xl font-black tracking-widest text-green-700">{mockOtp}</p>
           </div>
-        ) : (
-          <form action={onSubmit} className="space-y-6">
+        )}
+
+        {step === "email" && (
+          <form action={handleEmailSubmit} className="space-y-6">
             <div>
               <label className="text-base font-bold text-slate-700 mb-2 block">Email Address</label>
-              <input name="email" type="email" required placeholder="you@example.com"
+              <input name="email" type="email" required placeholder="you@example.com" defaultValue={email}
                 className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all font-medium placeholder:text-slate-400" />
             </div>
 
@@ -94,22 +147,57 @@ export default function ForgotPasswordPage() {
               disabled={loading}
               className="w-full bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-500 hover:to-teal-500 text-white rounded-xl px-4 py-3.5 text-base font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-green-500/25 active:scale-[0.98] flex items-center justify-center gap-2"
             >
-              {loading ? (
-                <>
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Sending...
-                </>
-              ) : (
-                "Send Reset Link"
-              )}
+              {loading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : "Send Code"}
+            </button>
+          </form>
+        )}
+
+        {step === "otp" && (
+          <form action={handleOtpSubmit} className="space-y-6">
+            <div>
+              <label className="text-base font-bold text-slate-700 mb-2 block">6-Digit Code</label>
+              <input name="otp" type="text" required placeholder="123456" maxLength={6} pattern="\d{6}"
+                className="w-full text-center tracking-[0.5em] bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-4 py-3 text-2xl focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all font-black placeholder:text-slate-300 placeholder:font-medium placeholder:tracking-normal" />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-500 hover:to-teal-500 text-white rounded-xl px-4 py-3.5 text-base font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-green-500/25 active:scale-[0.98] flex items-center justify-center gap-2"
+            >
+              {loading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : "Verify Code"}
+            </button>
+          </form>
+        )}
+
+        {step === "password" && (
+          <form action={handlePasswordSubmit} className="space-y-6">
+            <div>
+              <label className="text-base font-bold text-slate-700 mb-2 block">New Password</label>
+              <input name="password" type="password" required placeholder="••••••••" minLength={6}
+                className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all font-medium placeholder:text-slate-400" />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-500 hover:to-teal-500 text-white rounded-xl px-4 py-3.5 text-base font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-green-500/25 active:scale-[0.98] flex items-center justify-center gap-2"
+            >
+              {loading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : "Save New Password"}
             </button>
           </form>
         )}
 
         <div className="mt-8 text-center">
-          <Link href="/auth/signin" className="text-base text-slate-500 hover:text-slate-900 font-bold transition-colors">
-            Back to Sign In
-          </Link>
+          {step === "email" ? (
+            <Link href="/auth/signin" className="text-base text-slate-500 hover:text-slate-900 font-bold transition-colors">
+              Back to Sign In
+            </Link>
+          ) : (
+            <button onClick={() => setStep("email")} className="text-base text-slate-500 hover:text-slate-900 font-bold transition-colors">
+              Cancel
+            </button>
+          )}
         </div>
       </div>
     </div>

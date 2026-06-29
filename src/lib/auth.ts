@@ -125,8 +125,9 @@ export async function requestPasswordReset(email: string) {
   }
   
   const user = result[0];
-  const token = crypto.randomBytes(32).toString('hex');
-  const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString(); // 1 hour
+  // Generate a 6-digit OTP
+  const token = Math.floor(100000 + Math.random() * 900000).toString();
+  const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString(); // 15 mins for OTP
   
   // Clear any existing tokens for this user
   await db.delete(passwordResetTokens).where(eq(passwordResetTokens.userId, user.id));
@@ -138,25 +139,50 @@ export async function requestPasswordReset(email: string) {
     expiresAt,
   });
   
-  return { success: true, token };
+  return { success: true, token }; // For demo purposes, we return the token
 }
 
-export async function verifyAndResetPassword(token: string, newPassword: string) {
-  const tokenResult = await db.select().from(passwordResetTokens).where(eq(passwordResetTokens.token, token));
+export async function verifyOtp(email: string, otp: string) {
+  const userResult = await db.select().from(users).where(eq(users.email, email));
+  if (userResult.length === 0) return { error: 'Invalid or expired OTP' };
+  
+  const user = userResult[0];
+  const tokenResult = await db.select().from(passwordResetTokens).where(and(eq(passwordResetTokens.userId, user.id), eq(passwordResetTokens.token, otp)));
+  
   if (tokenResult.length === 0) {
-    return { error: 'Invalid or expired token' };
+    return { error: 'Invalid or expired OTP' };
   }
   
   const resetData = tokenResult[0];
   if (new Date(resetData.expiresAt) < new Date()) {
     await db.delete(passwordResetTokens).where(eq(passwordResetTokens.id, resetData.id));
-    return { error: 'Token has expired' };
+    return { error: 'OTP has expired' };
+  }
+  
+  return { success: true };
+}
+
+export async function verifyAndResetPassword(email: string, otp: string, newPassword: string) {
+  const userResult = await db.select().from(users).where(eq(users.email, email));
+  if (userResult.length === 0) return { error: 'Invalid request' };
+  
+  const user = userResult[0];
+  const tokenResult = await db.select().from(passwordResetTokens).where(and(eq(passwordResetTokens.userId, user.id), eq(passwordResetTokens.token, otp)));
+  
+  if (tokenResult.length === 0) {
+    return { error: 'Invalid or expired OTP' };
+  }
+  
+  const resetData = tokenResult[0];
+  if (new Date(resetData.expiresAt) < new Date()) {
+    await db.delete(passwordResetTokens).where(eq(passwordResetTokens.id, resetData.id));
+    return { error: 'OTP has expired' };
   }
   
   const passwordHash = hashPassword(newPassword);
   
   await db.update(users).set({ passwordHash }).where(eq(users.id, resetData.userId));
-  await db.delete(passwordResetTokens).where(eq(passwordResetTokens.id, resetData.id));
+  await db.delete(passwordResetTokens).where(eq(passwordResetTokens.userId, user.id)); // Clean all tokens for safety
   
   // Log them in immediately after reset
   const sessionToken = signSession(resetData.userId);

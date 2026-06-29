@@ -52,16 +52,30 @@ export async function requestPasswordResetAction(formData: FormData) {
   return result; // contains token
 }
 
+export async function verifyOtpAction(formData: FormData) {
+  const email = formData.get("email") as string;
+  const otp = formData.get("otp") as string;
+  
+  if (!email || !otp) {
+    return { error: "Email and OTP are required" };
+  }
+  
+  const { verifyOtp } = await import("@/lib/auth");
+  const result = await verifyOtp(email, otp);
+  return result;
+}
+
 export async function resetPasswordAction(formData: FormData) {
-  const token = formData.get("token") as string;
+  const email = formData.get("email") as string;
+  const otp = formData.get("otp") as string;
   const password = formData.get("password") as string;
   
-  if (!token || !password) {
-    return { error: "Token and new password are required" };
+  if (!email || !otp || !password) {
+    return { error: "Email, OTP, and new password are required" };
   }
   
   const { verifyAndResetPassword } = await import("@/lib/auth");
-  const result = await verifyAndResetPassword(token, password);
+  const result = await verifyAndResetPassword(email, otp, password);
   if (result.error) {
     return { error: result.error };
   }
