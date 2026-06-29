@@ -152,7 +152,7 @@ export default function Home() {
                     >
                       <div className="mt-0.5"><MessageCircle className="text-green-500 w-5 h-5" /></div>
                       <div>
-                        <div className="font-bold text-slate-900">Check-in with Disha</div>
+                        <div className="font-bold text-slate-900">Check-in with LifeSaver</div>
                         <div className="text-base font-medium text-slate-500 mt-1">Mental health break</div>
                       </div>
                     </motion.div>
@@ -295,6 +295,7 @@ export default function Home() {
     </div>
   );
 }
+
 
 
 

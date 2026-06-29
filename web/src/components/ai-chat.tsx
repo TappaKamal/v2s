@@ -11,7 +11,7 @@ interface Message {
 
 export default function AiChat({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "Hi! I'm your Disha AI health coach. I can help you plan your schedule, prioritize tasks, and keep your productivity healthy. What would you like to work on?" }
+    { role: "assistant", content: "Hi! I'm your LifeSaver AI health coach. I can help you plan your schedule, prioritize tasks, and keep your productivity healthy. What would you like to work on?" }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -96,7 +96,7 @@ export default function AiChat({ isOpen, onClose }: { isOpen: boolean; onClose: 
           <div className="bg-gradient-to-br from-green-500 to-teal-500 p-1.5 rounded-lg shadow-sm shadow-green-500/20">
             <Stethoscope className="w-4 h-4 text-white" />
           </div>
-          <span className="font-bold text-[15px] text-slate-900">Disha AI Coach</span>
+          <span className="font-bold text-[15px] text-slate-900">LifeSaver AI Coach</span>
         </div>
         <button onClick={onClose} className="p-1 hover:bg-white rounded-lg transition-colors border border-transparent hover:border-slate-200">
           <X className="w-5 h-5 text-slate-500" />
@@ -135,7 +135,7 @@ export default function AiChat({ isOpen, onClose }: { isOpen: boolean; onClose: 
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-            placeholder="Ask Disha anything..."
+            placeholder="Ask LifeSaver anything..."
             className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 text-slate-900 placeholder:text-slate-400 font-medium transition-all"
           />
           <Button
@@ -151,6 +151,7 @@ export default function AiChat({ isOpen, onClose }: { isOpen: boolean; onClose: 
     </div>
   );
 }
+
 
 
 

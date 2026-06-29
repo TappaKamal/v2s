@@ -58,3 +58,4 @@ export async function* streamText(prompt: string, systemInstruction?: string): A
     }
   }
 }
+
