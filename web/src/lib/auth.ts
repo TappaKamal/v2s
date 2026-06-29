@@ -5,11 +5,35 @@ import { eq } from 'drizzle-orm';
 import { v4 as uuidv4 } from 'uuid';
 import crypto from 'crypto';
 
-const SESSION_COOKIE = 'session_id';
-const sessions = new Map<string, { userId: string; expiresAt: number }>();
+const SESSION_COOKIE = 'session_token';
+const SECRET = process.env.GEMINI_API_KEY || 'local_secret_key_v2s';
 
 function hashPassword(password: string): string {
   return crypto.createHash('sha256').update(password).digest('hex');
+}
+
+function signSession(userId: string): string {
+  const expiresAt = Date.now() + 7 * 24 * 60 * 60 * 1000;
+  const payload = `${userId}|${expiresAt}`;
+  const signature = crypto.createHmac('sha256', SECRET).update(payload).digest('hex');
+  return `${payload}|${signature}`;
+}
+
+function verifySession(token: string): { userId: string } | null {
+  try {
+    const [userId, expiresAt, signature] = token.split('|');
+    if (!userId || !expiresAt || !signature) return null;
+    
+    if (parseInt(expiresAt, 10) < Date.now()) return null;
+
+    const expectedSignature = crypto.createHmac('sha256', SECRET).update(`${userId}|${expiresAt}`).digest('hex');
+    if (signature === expectedSignature) {
+      return { userId };
+    }
+  } catch (e) {
+    return null;
+  }
+  return null;
 }
 
 export async function signUp(email: string, password: string, name: string) {
@@ -28,11 +52,10 @@ export async function signUp(email: string, password: string, name: string) {
     passwordHash,
   });
 
-  const sessionId = uuidv4();
-  sessions.set(sessionId, { userId, expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000 });
+  const sessionToken = signSession(userId);
 
   const cookieStore = await cookies();
-  cookieStore.set(SESSION_COOKIE, sessionId, {
+  cookieStore.set(SESSION_COOKIE, sessionToken, {
     httpOnly: true,
     secure: false,
     sameSite: 'lax',
@@ -55,11 +78,10 @@ export async function signIn(email: string, password: string) {
     return { error: 'Invalid credentials' };
   }
 
-  const sessionId = uuidv4();
-  sessions.set(sessionId, { userId: user.id, expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000 });
+  const sessionToken = signSession(user.id);
 
   const cookieStore = await cookies();
-  cookieStore.set(SESSION_COOKIE, sessionId, {
+  cookieStore.set(SESSION_COOKIE, sessionToken, {
     httpOnly: true,
     secure: false,
     sameSite: 'lax',
@@ -72,28 +94,21 @@ export async function signIn(email: string, password: string) {
 
 export async function signOut() {
   const cookieStore = await cookies();
-  const sessionId = cookieStore.get(SESSION_COOKIE)?.value;
-  if (sessionId) {
-    sessions.delete(sessionId);
-    cookieStore.delete(SESSION_COOKIE);
-  }
+  cookieStore.delete(SESSION_COOKIE);
 }
 
 export async function getSession(): Promise<{ userId: string; user: typeof users.$inferSelect } | null> {
   const cookieStore = await cookies();
-  const sessionId = cookieStore.get(SESSION_COOKIE)?.value;
-  if (!sessionId) return null;
+  const sessionToken = cookieStore.get(SESSION_COOKIE)?.value;
+  if (!sessionToken) return null;
 
-  const session = sessions.get(sessionId);
-  if (!session || session.expiresAt < Date.now()) {
-    if (session) sessions.delete(sessionId);
-    return null;
-  }
+  const validSession = verifySession(sessionToken);
+  if (!validSession) return null;
 
-  const result = await db.select().from(users).where(eq(users.id, session.userId));
+  const result = await db.select().from(users).where(eq(users.id, validSession.userId));
   if (result.length === 0) return null;
 
-  return { userId: session.userId, user: result[0] };
+  return { userId: validSession.userId, user: result[0] };
 }
 
 export async function requireAuth() {
